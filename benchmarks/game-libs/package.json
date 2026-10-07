@@ -1,0 +1,11 @@
+{
+  "name": "kakkoi-game-lib-benchmark",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "kaplay": "4000.0.0-alpha.27.1",
+    "kontra": "10.0.2",
+    "littlejsengine": "1.25.0",
+    "playwright": "^1.55.0"
+  }
+}
