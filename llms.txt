@@ -18,6 +18,7 @@ Beginner setup:
 - Local server explanation: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/local-server.md
 
 Core recipes:
+- Student setup: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/student-setup.md
 - GitHub CLI: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/github-cli.md
 - Create repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/create-repository.md
 - KakkoiSchool repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/kakkoischool-repository.md
