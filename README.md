@@ -28,10 +28,25 @@ Use the first available option:
 
 Never invent a fifth path just because you remember another framework or service.
 
+## New student / blank computer
+
+If the student is starting with almost nothing installed, use the complete first-day path:
+
+- [`setup/README.md`](setup/README.md) — GitHub account → Git → GitHub CLI → VS Code → GitHub/Copilot → Live Server → localhost → commit/push → GitHub Pages
+
 ## Common tasks
 
 | Student wants to… | Read |
 |---|---|
+| Set up a new student's computer | [`setup/README.md`](setup/README.md) |
+| Create a GitHub account | [`setup/github-account.md`](setup/github-account.md) |
+| Install Git | [`setup/git.md`](setup/git.md) |
+| Install VS Code | [`setup/vscode.md`](setup/vscode.md) |
+| Connect VS Code to GitHub | [`setup/vscode-github.md`](setup/vscode-github.md) |
+| Enable Copilot Free / Student | [`setup/copilot.md`](setup/copilot.md) |
+| Install/use Live Server | [`setup/live-server.md`](setup/live-server.md) |
+| Understand localhost / local servers | [`setup/local-server.md`](setup/local-server.md) |
+| Apply for GitHub Education | [`setup/github-education.md`](setup/github-education.md) |
 | Install and use GitHub CLI | [`recipes/github-cli.md`](recipes/github-cli.md) |
 | Create a local project | [`recipes/create-local-project.md`](recipes/create-local-project.md) |
 | Create a GitHub repository | [`recipes/create-repository.md`](recipes/create-repository.md) |
