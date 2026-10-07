@@ -7,10 +7,11 @@
 import kaplay from './node_modules/kaplay/dist/kaplay.mjs';
 import { W, H, SIZE, params, position, velocity, createMeter } from './common.js';
 
+const q = new URLSearchParams(location.search);
+const mode = q.get('mode') || 'movement';
 const { n, area } = params();
-const canvas = document.querySelector('#game');
 const k = kaplay({
-  canvas,
+  canvas: document.querySelector('#game'),
   width: W,
   height: H,
   global: false,
@@ -18,29 +19,79 @@ const k = kaplay({
   background: [20, 24, 32],
 });
 
-for (let i = 0; i < n; i++) {
-  const p = position(i);
-  const v = velocity(i);
-  const parts = [
-    k.rect(SIZE, SIZE),
-    k.pos(p.x, p.y),
-    k.color(90 + i % 120, 180, 240),
-    'bench',
-    { vx: v.x * 60, vy: v.y * 60 },
+if (mode === 'collision') {
+  const t = 16;
+  const walls = [
+    { x: 0, y: 0, w: W, h: t },
+    { x: 0, y: H - t, w: W, h: t },
+    { x: 0, y: 0, w: t, h: H },
+    { x: W - t, y: 0, w: t, h: H },
   ];
-  if (area) parts.splice(3, 0, k.area());
-  k.add(parts);
+  for (let row = 0; row < 4; row++) {
+    const y = 90 + row * 120;
+    for (let col = 0; col < 4; col++) {
+      const x = 100 + col * 170 + (row % 2) * 35;
+      walls.push((row + col) % 2 === 0
+        ? { x, y, w: 72, h: 18 }
+        : { x, y, w: 18, h: 72 });
+    }
+  }
+
+  for (const wall of walls) {
+    k.add([
+      k.rect(wall.w, wall.h),
+      k.pos(wall.x, wall.y),
+      k.color(90, 98, 112),
+      k.area({ restitution: 1, friction: 0 }),
+      k.body({ isStatic: true }),
+      'wall',
+    ]);
+  }
+
+  const s = 12;
+  for (let i = 0; i < n; i++) {
+    const base = position(i);
+    const p = {
+      x: 24 + (base.x % (W - 48 - s)),
+      y: 24 + (base.y % (H - 48 - s)),
+    };
+    const v = velocity(i);
+    const o = k.add([
+      k.rect(s, s),
+      k.pos(p.x, p.y),
+      k.color(90 + i % 120, 180, 240),
+      k.area({ collisionIgnore: ['mover'], restitution: 1, friction: 0 }),
+      k.body({ gravityScale: 0, damping: 0 }),
+      'mover',
+    ]);
+    o.vel = k.vec2(v.x * 60, v.y * 60);
+  }
+
+  k.onDraw(createMeter('KAPLAY collision', n));
+} else {
+  for (let i = 0; i < n; i++) {
+    const p = position(i);
+    const v = velocity(i);
+    const parts = [
+      k.rect(SIZE, SIZE),
+      k.pos(p.x, p.y),
+      k.color(90 + i % 120, 180, 240),
+      'bench',
+      { vx: v.x * 60, vy: v.y * 60 },
+    ];
+    if (area) parts.splice(3, 0, k.area());
+    k.add(parts);
+  }
+
+  k.onUpdate('bench', (o) => {
+    o.pos.x += o.vx * k.dt();
+    o.pos.y += o.vy * k.dt();
+    if (o.pos.x < 0) { o.pos.x = 0; o.vx = Math.abs(o.vx); }
+    else if (o.pos.x > W - SIZE) { o.pos.x = W - SIZE; o.vx = -Math.abs(o.vx); }
+    if (o.pos.y < 0) { o.pos.y = 0; o.vy = Math.abs(o.vy); }
+    else if (o.pos.y > H - SIZE) { o.pos.y = H - SIZE; o.vy = -Math.abs(o.vy); }
+  });
+
+  k.onDraw(createMeter(area ? 'KAPLAY + area()' : 'KAPLAY', n, { area }));
 }
-
-k.onUpdate('bench', (o) => {
-  o.pos.x += o.vx * k.dt();
-  o.pos.y += o.vy * k.dt();
-  if (o.pos.x < 0) { o.pos.x = 0; o.vx = Math.abs(o.vx); }
-  else if (o.pos.x > W - SIZE) { o.pos.x = W - SIZE; o.vx = -Math.abs(o.vx); }
-  if (o.pos.y < 0) { o.pos.y = 0; o.vy = Math.abs(o.vy); }
-  else if (o.pos.y > H - SIZE) { o.pos.y = H - SIZE; o.vy = -Math.abs(o.vy); }
-});
-
-const tick = createMeter(area ? 'KAPLAY + area()' : 'KAPLAY', n, { area });
-k.onDraw(tick);
 </script>

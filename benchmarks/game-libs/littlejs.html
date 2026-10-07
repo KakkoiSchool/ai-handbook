@@ -6,12 +6,14 @@
 import * as L from './node_modules/littlejsengine/dist/littlejs.esm.js';
 import { W, H, SIZE, params, position, velocity, createMeter } from './common.js';
 
+const q = new URLSearchParams(location.search);
+const mode = q.get('mode') || 'movement';
 const { n } = params();
-const tick = createMeter('LittleJS', n);
-let halfW = W / 2;
-let halfH = H / 2;
+const halfW = W / 2;
+const halfH = H / 2;
+const tick = createMeter(mode === 'collision' ? 'LittleJS collision' : 'LittleJS', n);
 
-class BenchObject extends L.EngineObject {
+class MovementObject extends L.EngineObject {
   constructor(i) {
     const p = position(i);
     const v = velocity(i);
@@ -46,15 +48,62 @@ function gameInit() {
   L.setCameraPos(L.vec2(0, 0));
   L.setCameraScale(1);
   L.setCanvasClearColor(new L.Color(0.08, 0.09, 0.13, 1));
-  for (let i = 0; i < n; i++) new BenchObject(i);
+
+  if (mode !== 'collision') {
+    for (let i = 0; i < n; i++) new MovementObject(i);
+    return;
+  }
+
+  L.setGravity(L.vec2(0, 0));
+  const t = 16;
+  const wallRects = [
+    { x: 0, y: 0, w: W, h: t },
+    { x: 0, y: H - t, w: W, h: t },
+    { x: 0, y: 0, w: t, h: H },
+    { x: W - t, y: 0, w: t, h: H },
+  ];
+  for (let row = 0; row < 4; row++) {
+    const y = 90 + row * 120;
+    for (let col = 0; col < 4; col++) {
+      const x = 100 + col * 170 + (row % 2) * 35;
+      wallRects.push((row + col) % 2 === 0
+        ? { x, y, w: 72, h: 18 }
+        : { x, y, w: 18, h: 72 });
+    }
+  }
+
+  for (const r of wallRects) {
+    const pos = L.vec2(r.x + r.w / 2 - halfW, halfH - (r.y + r.h / 2));
+    const wall = new L.EngineObject(
+      pos, L.vec2(r.w, r.h), undefined, 0, new L.Color(0.35, 0.38, 0.44, 1),
+    );
+    wall.mass = 0;
+    wall.setCollision(true, true, false, false);
+  }
+
+  const s = 12;
+  for (let i = 0; i < n; i++) {
+    const base = position(i);
+    const p = {
+      x: 24 + (base.x % (W - 48 - s)),
+      y: 24 + (base.y % (H - 48 - s)),
+    };
+    const v = velocity(i);
+    const o = new L.EngineObject(
+      L.vec2(p.x + s / 2 - halfW, halfH - (p.y + s / 2)),
+      L.vec2(s),
+      undefined,
+      0,
+      new L.Color(0.35, 0.71, 0.94, 1),
+    );
+    o.velocity = L.vec2(v.x, -v.y);
+    o.gravityScale = 0;
+    o.damping = 1;
+    o.restitution = 1;
+    o.friction = 0;
+    o.setCollision(true, false, false, false);
+  }
 }
 
-L.engineInit(
-  gameInit,
-  () => {},
-  () => {},
-  () => {},
-  tick,
-  [],
-);
+L.engineInit(gameInit, () => {}, () => {}, () => {}, tick, []);
 </script>
