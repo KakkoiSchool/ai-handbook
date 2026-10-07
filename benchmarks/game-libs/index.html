@@ -24,16 +24,11 @@ code{font-family:ui-monospace,monospace}
   <p>These are the same browser workloads used by CI. Open any test on this device to see its live FPS and frame time. CI disables frame limiting; normal phones and displays commonly cap visible rendering near 60/90/120 Hz.</p>
 
   <div class="winner">
-    <div class="eyebrow">CURRENT KAKKOI SCHOOL WINNER</div>
-    <h2>🥇 Kontra.js</h2>
-    <p><strong>Best overall choice for our student browser games right now.</strong> It is closest to raw Canvas performance, has by far the strongest collision scaling in our tests, keeps the API small enough for weaker AIs, and avoids a heavy engine/runtime.</p>
-    <ul>
-      <li>Movement: hundreds to thousands of objects with a large frame-time margin.</li>
-      <li>Collision: Quadtree + simple AABB checks stayed dramatically faster than KAPLAY and remained ahead of Phaser in CI.</li>
-      <li>FPS262626-style loop: essentially raw-Canvas speed in the first real-game workload.</li>
-      <li>Small mental model: the student still sees the game loop instead of hiding it behind a large engine.</li>
-    </ul>
-    <div class="metrics" id="winner-metrics">Loading latest Kontra CI numbers…</div>
+    <div class="eyebrow">MOBILE-FIRST VERDICT</div>
+    <h2 id="main-winner">Run the phone benchmark</h2>
+    <p><strong>Real-device results outrank headless CI.</strong> On the first Android check, Phaser 4 showed about 90.6 FPS while Kontra showed about 31.3 FPS on the same FPS262626-style workload. That overturned the earlier CI-only Kontra verdict.</p>
+    <p><a class="run" href="./mobile.html">RUN RELIABLE MOBILE BENCHMARK →</a></p>
+    <div class="metrics" id="winner-metrics">CI remains useful for scaling/regression data, not for declaring the mobile winner.</div>
   </div>
 
   <div class="notice"><strong>FPS262626 reference:</strong> the student's original vibe-coded NEON GAME HUB is preserved as an untouched snapshot and measured by CI as a baseline.</div>
@@ -95,6 +90,15 @@ function cards(el,cases,counts){
 cards('#movement',movement,[100,500,1000,5000]);
 cards('#collision',collision,[100,250,500,1000]);
 
+try {
+  const mobile=JSON.parse(localStorage.getItem('kakkoi-mobile-framework-winner-v1')||'null');
+  if(mobile){
+    document.querySelector('#main-winner').textContent='🥇 '+mobile.winner+' on this device';
+    document.querySelector('#winner-metrics').innerHTML=
+      'Your latest mobile result: <strong>'+mobile.fps+' FPS / '+mobile.ms+' ms</strong> · '+new Date(mobile.measuredAt).toLocaleString();
+  }
+} catch {}
+
 try{
  const data=await fetch('./results/latest.json',{cache:'no-store'}).then(r=>r.json());
  const rows=data.results.map(r=>'<tr><td>'+r.suite+'</td><td>'+r.id+'</td><td>'+r.n+'</td><td>'+(r.fps??'ERROR')+'</td><td>'+(r.ms??'')+'</td><td>'+(r.p95??'')+'</td></tr>').join('');
@@ -106,10 +110,12 @@ try{
  const fps=find('fps262626-style','kontra',5);
  const raw=find('fps262626-style','raw-canvas',5);
  const fmt=r=>r&&r.fps ? r.fps+' FPS / '+r.ms+' ms' : 'pending';
- document.querySelector('#winner-metrics').innerHTML=
-   'Latest CI → 1000 movers: <strong>'+fmt(move)+'</strong>' +
-   ' · 1000 collision movers: <strong>'+fmt(collision1000)+'</strong>' +
-   ' · FPS262626-style: <strong>'+fmt(fps)+'</strong>' +
-   (raw ? ' · raw Canvas baseline: <strong>'+fmt(raw)+'</strong>' : '');
+ if(!localStorage.getItem('kakkoi-mobile-framework-winner-v1')){
+   document.querySelector('#winner-metrics').innerHTML=
+     'CI reference → Kontra 1000 movers: <strong>'+fmt(move)+'</strong>' +
+     ' · Kontra 1000 collision movers: <strong>'+fmt(collision1000)+'</strong>' +
+     ' · Kontra FPS262626-style: <strong>'+fmt(fps)+'</strong>' +
+     (raw ? ' · raw Canvas baseline: <strong>'+fmt(raw)+'</strong>' : '');
+ }
 }catch(e){document.querySelector('#results').textContent='CI results unavailable: '+e.message}
 </script>

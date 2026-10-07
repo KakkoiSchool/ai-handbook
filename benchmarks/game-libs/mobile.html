@@ -1,0 +1,152 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kakkoi School Mobile Game Framework Benchmark</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#07080a;color:#f5f3ef}
+*{box-sizing:border-box}body{margin:0;background:#07080a}main{max-width:760px;margin:auto;padding:20px 16px 64px}
+.tag{color:#d69cff;font:11px ui-monospace,monospace;letter-spacing:.16em}
+h1{font-size:clamp(30px,9vw,54px);line-height:1;margin:8px 0 12px;letter-spacing:-.04em}
+p{color:#b9bec2;line-height:1.6}.purple{padding:18px;border:1px solid #a200dd;background:rgba(78,0,110,.25);box-shadow:0 0 28px rgba(170,0,255,.12)}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+button{appearance:none;border:1px solid #49606a;background:#111a1f;color:#fff;padding:11px 14px;font:600 13px ui-monospace,monospace}
+button.primary{border-color:#c25cff;background:#4d1264}button:disabled{opacity:.45}
+#stage{margin:16px 0;border:1px solid #243039;background:#000;aspect-ratio:16/9;overflow:hidden}
+iframe{width:100%;height:100%;border:0;background:#000;display:block}
+#status{font:12px/1.55 ui-monospace,monospace;color:#d8e6eb;white-space:pre-wrap;min-height:54px}
+table{width:100%;border-collapse:collapse;font:12px ui-monospace,monospace;margin-top:16px}
+th,td{padding:8px 6px;border-bottom:1px solid #252c31;text-align:left}th{color:#94a6ae}
+.win{color:#f0bdff;font-weight:700}.note{font-size:12px;color:#89949a}
+</style>
+<main>
+  <div class="tag">REAL DEVICE / MOBILE FIRST</div>
+  <h1>Game Framework Mobile Test</h1>
+  <p>This runs the same FPS262626-style 1280×720 workload directly on <strong>this device</strong>. CI does not decide the winner here.</p>
+
+  <div class="purple">
+    <strong>Method</strong>
+    <p>Reliable mode runs 3 interleaved rounds and ranks frameworks by median FPS. The order rotates each round to reduce heat/order bias. LittleJS uses its documented variable-step mode so high-refresh displays are not artificially capped at 60 Hz.</p>
+  </div>
+
+  <div class="controls">
+    <button id="quick">Quick — 1 round</button>
+    <button id="reliable" class="primary">Reliable — 3 rounds</button>
+    <button id="stop" disabled>Stop</button>
+  </div>
+
+  <div id="status">Ready.</div>
+  <div id="stage"><iframe id="frame" title="benchmark stage"></iframe></div>
+  <div id="winner" class="purple">No result yet.</div>
+  <div id="results"></div>
+  <p class="note">Keep this tab visible. Plugging/unplugging power, battery saver, thermal throttling, or switching apps can change mobile results.</p>
+</main>
+<script>
+const tests=[
+  {id:'raw',name:'Raw Canvas',url:'fps-canvas.html',framework:false},
+  {id:'kontra',name:'Kontra',url:'fps-kontra.html',framework:true},
+  {id:'kaplay',name:'KAPLAY',url:'fps-kaplay.html',framework:true},
+  {id:'littlejs',name:'LittleJS variable-step',url:'fps-littlejs.html?variable=1',framework:true},
+  {id:'phaser',name:'Phaser 4',url:'fps-phaser.html',framework:true},
+];
+
+const rotations=[
+  ['raw','kontra','kaplay','littlejs','phaser'],
+  ['phaser','raw','kontra','kaplay','littlejs'],
+  ['littlejs','phaser','raw','kontra','kaplay'],
+];
+
+const frame=document.querySelector('#frame');
+const status=document.querySelector('#status');
+const winner=document.querySelector('#winner');
+const resultsEl=document.querySelector('#results');
+const quick=document.querySelector('#quick');
+const reliable=document.querySelector('#reliable');
+const stop=document.querySelector('#stop');
+
+let running=false;
+let stopRequested=false;
+let pendingResolve=null;
+let allResults={};
+
+const median=values=>{
+  const a=[...values].sort((a,b)=>a-b);
+  const m=Math.floor(a.length/2);
+  return a.length%2 ? a[m] : (a[m-1]+a[m])/2;
+};
+
+function renderResults(){
+  const rows=tests.map(t=>{
+    const rs=allResults[t.id]||[];
+    if(!rs.length) return '<tr><td>'+t.name+'</td><td>—</td><td>—</td><td>0</td></tr>';
+    return '<tr><td>'+t.name+'</td><td>'+median(rs.map(r=>r.fps)).toFixed(1)+'</td><td>'+median(rs.map(r=>r.ms)).toFixed(2)+'</td><td>'+rs.length+'</td></tr>';
+  }).join('');
+  resultsEl.innerHTML='<table><thead><tr><th>case</th><th>median FPS</th><th>median ms</th><th>runs</th></tr></thead><tbody>'+rows+'</tbody></table>';
+
+  const ranked=tests.filter(t=>t.framework && allResults[t.id]?.length)
+    .map(t=>({t,fps:median(allResults[t.id].map(r=>r.fps)),ms:median(allResults[t.id].map(r=>r.ms))}))
+    .sort((a,b)=>b.fps-a.fps || a.ms-b.ms);
+
+  if(ranked.length){
+    const w=ranked[0];
+    winner.innerHTML='<div class="tag">THIS DEVICE</div><h2 class="win">🥇 '+w.t.name+'</h2>'+
+      '<div>'+w.fps.toFixed(1)+' FPS · '+w.ms.toFixed(2)+' ms median frame time</div>'+
+      (ranked.length>1?'<p>Runner-up: '+ranked[1].t.name+' — '+ranked[1].fps.toFixed(1)+' FPS</p>':'');
+    localStorage.setItem('kakkoi-mobile-framework-winner-v1',JSON.stringify({
+      winner:w.t.name,fps:+w.fps.toFixed(1),ms:+w.ms.toFixed(2),
+      results:ranked.map(x=>({name:x.t.name,fps:+x.fps.toFixed(1),ms:+x.ms.toFixed(2)})),
+      measuredAt:new Date().toISOString(),
+      userAgent:navigator.userAgent
+    }));
+  }
+}
+
+window.addEventListener('message',e=>{
+  if(e.origin!==location.origin || e.data?.type!=='kakkoi-benchmark-result') return;
+  if(pendingResolve) {
+    const resolve=pendingResolve;
+    pendingResolve=null;
+    resolve(e.data.result);
+  }
+});
+
+async function runOne(test,round,index,total){
+  status.textContent='Round '+(round+1)+' · '+(index+1)+'/'+total+'\nRunning '+test.name+'…\nKeep this page visible.';
+  const sep=test.url.includes('?')?'&':'?';
+  frame.src=test.url+sep+'mobileRun='+Date.now();
+  const result=await new Promise((resolve,reject)=>{
+    pendingResolve=resolve;
+    const timer=setTimeout(()=>{
+      if(pendingResolve===resolve) pendingResolve=null;
+      reject(new Error(test.name+' timed out'));
+    },45000);
+    const original=resolve;
+    pendingResolve=(value)=>{clearTimeout(timer);original(value)};
+  });
+  (allResults[test.id] ||= []).push(result);
+  renderResults();
+  await new Promise(r=>setTimeout(r,1200));
+}
+
+async function start(roundCount){
+  if(running) return;
+  running=true; stopRequested=false; allResults={}; renderResults();
+  quick.disabled=reliable.disabled=true; stop.disabled=false;
+  try{
+    for(let round=0;round<roundCount && !stopRequested;round++){
+      const order=rotations[round%rotations.length].map(id=>tests.find(t=>t.id===id));
+      for(let i=0;i<order.length && !stopRequested;i++){
+        try{ await runOne(order[i],round,i,order.length); }
+        catch(e){ status.textContent='Error: '+e.message; await new Promise(r=>setTimeout(r,1000)); }
+      }
+    }
+    status.textContent=stopRequested?'Stopped.':'Done. Winner computed from this device.';
+  } finally {
+    running=false; pendingResolve=null; quick.disabled=reliable.disabled=false; stop.disabled=true;
+  }
+}
+
+quick.onclick=()=>start(1);
+reliable.onclick=()=>start(3);
+stop.onclick=()=>{stopRequested=true;pendingResolve?.({fps:0,ms:999});pendingResolve=null};
+renderResults();
+</script>

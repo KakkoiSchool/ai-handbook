@@ -2,22 +2,20 @@
 
 A reproducible benchmark for libraries considered as Kakkoi School's default 2D browser-game layer.
 
-## Current recommendation: Kontra.js 🥇
+## Winner policy: mobile first
 
-**Kontra.js is the current Kakkoi School winner.**
+Do **not** use headless CI FPS to declare the best framework for student phones.
 
-Why:
+The first real Android comparison on the FPS262626-style workload showed roughly:
 
-- closest to raw Canvas performance in the FPS262626-style workload;
-- strongest movement and collision scaling in the current CI matrix;
-- very small mental model for beginners and weaker coding agents;
-- explicit game loop stays visible and teachable;
-- much smaller runtime than Phaser;
-- does not currently show the collision-performance problems we measured with KAPLAY.
+- Phaser 4: **90.6 FPS / 11.0 ms**
+- Kontra: **31.3 FPS / 32.0 ms**
 
-This is a **current engineering choice, not a permanent declaration**. The public Pages lab runs the same tests on real devices, and the recommendation should change if future versions or more realistic workloads overturn it.
+That overturned the earlier CI-only Kontra recommendation.
 
-The public page shows this recommendation in a purple winner panel together with the latest CI numbers.
+The public lab now includes `mobile.html`, which runs the same realistic workload directly on the device in interleaved rounds and ranks frameworks by median FPS. Real-device results outrank CI for the mobile recommendation.
+
+LittleJS is tested in its documented variable-step mode for the mobile comparison so high-refresh displays are not artificially capped by its default fixed-60-Hz loop.
 
 Public test lab after the Pages workflow deploys:
 
