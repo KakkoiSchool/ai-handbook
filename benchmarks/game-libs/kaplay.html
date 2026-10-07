@@ -1,0 +1,46 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>KAPLAY benchmark</title>
+<style>html,body{margin:0;overflow:hidden;background:#111}canvas{display:block}</style>
+<canvas id="game" width="800" height="600"></canvas>
+<script type="module">
+import kaplay from './node_modules/kaplay/dist/kaplay.mjs';
+import { W, H, SIZE, params, position, velocity, createMeter } from './common.js';
+
+const { n, area } = params();
+const canvas = document.querySelector('#game');
+const k = kaplay({
+  canvas,
+  width: W,
+  height: H,
+  global: false,
+  pixelDensity: 1,
+  background: [20, 24, 32],
+});
+
+for (let i = 0; i < n; i++) {
+  const p = position(i);
+  const v = velocity(i);
+  const parts = [
+    k.rect(SIZE, SIZE),
+    k.pos(p.x, p.y),
+    k.color(90 + i % 120, 180, 240),
+    'bench',
+    { vx: v.x * 60, vy: v.y * 60 },
+  ];
+  if (area) parts.splice(3, 0, k.area());
+  k.add(parts);
+}
+
+k.onUpdate('bench', (o) => {
+  o.pos.x += o.vx * k.dt();
+  o.pos.y += o.vy * k.dt();
+  if (o.pos.x < 0) { o.pos.x = 0; o.vx = Math.abs(o.vx); }
+  else if (o.pos.x > W - SIZE) { o.pos.x = W - SIZE; o.vx = -Math.abs(o.vx); }
+  if (o.pos.y < 0) { o.pos.y = 0; o.vy = Math.abs(o.vy); }
+  else if (o.pos.y > H - SIZE) { o.pos.y = H - SIZE; o.vy = -Math.abs(o.vy); }
+});
+
+const tick = createMeter(area ? 'KAPLAY + area()' : 'KAPLAY', n, { area });
+k.onDraw(tick);
+</script>
