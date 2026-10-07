@@ -119,5 +119,26 @@
       "bypass",
       "click the delete"
     ]
+  },
+  {
+    "id": "blank-computer-setup",
+    "prompt": "I only have a browser on my Mac. Help me set up everything I need for Kakkoi School so I can edit a website locally with AI and publish it to GitHub Pages.",
+    "recipe": "setup/README.md",
+    "must": [
+      "GitHub account",
+      "git --version",
+      "gh auth login --web",
+      "VS Code",
+      "Live Server",
+      "ritwickdey.LiveServer",
+      "localhost",
+      "GitHub Pages"
+    ],
+    "must_not": [
+      "paste your token",
+      "buy GitHub Pro",
+      "localhost is public",
+      "upload your password"
+    ]
   }
 ]
