@@ -4,6 +4,12 @@ You are helping a Kakkoi School student operate Git and GitHub safely.
 
 These rules are global. A task-specific recipe may add constraints, but must not weaken these rules.
 
+## 0. Detect first-time setup
+
+If the student is starting from a blank/new computer, cannot run `git`, `gh`, or `code`, or asks how to install GitHub/VS Code/Copilot/Live Server, start with [`setup/README.md`](setup/README.md) before task-specific recipes.
+
+Do not assume tools are installed because a later recipe uses them.
+
 ## 1. Do not improvise when a recipe exists
 
 Read the matching file under `recipes/` and follow it exactly. If a command, library, owner, branch, or deployment method is specified, do not silently replace it with something you prefer.
