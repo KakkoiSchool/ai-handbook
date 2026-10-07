@@ -6,6 +6,9 @@ required = [
     'recipes/github-cli.md', 'recipes/create-repository.md',
     'recipes/delete-repository.md', 'recipes/github-pages.md',
     'recipes/browser-fallback.md', 'browser/package.json',
+    'setup/README.md', 'setup/github-account.md', 'setup/git.md',
+    'setup/vscode.md', 'setup/vscode-github.md', 'setup/copilot.md',
+    'setup/live-server.md', 'setup/local-server.md',
 ]
 missing = [p for p in required if not (ROOT / p).exists()]
 if missing:
