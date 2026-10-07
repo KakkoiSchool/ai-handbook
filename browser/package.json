@@ -1,0 +1,15 @@
+{
+  "name": "kakkoi-ai-handbook-browser",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "login": "node login.mjs",
+    "new-repo": "node open-new-repo.mjs",
+    "settings": "node open-settings.mjs",
+    "inspect": "node inspect.mjs",
+    "verify": "node verify-site.mjs"
+  },
+  "dependencies": {
+    "playwright": "latest"
+  }
+}
