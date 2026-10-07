@@ -1,42 +1,120 @@
-# Student setup checks
+# Set up a computer for Kakkoi School
 
-These scripts **only inspect** the student's setup. They do not install software or change configuration.
+This is the canonical first-time setup route.
 
-The AI should first read [`../recipes/student-setup.md`](../recipes/student-setup.md).
+If the student says anything like "set up my computer", "install what I need", or "get me ready for Kakkoi School", follow this page in order.
 
-## macOS / Linux
+Install only what is missing.
 
-From the handbook repository:
+## 1. GitHub account
 
-```sh
-sh setup/check-setup.sh
-```
+Ask whether the student already has a GitHub account.
 
-## Windows PowerShell
+If not, follow [github-account.md](github-account.md) and help them create one safely.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File setup/check-setup.ps1
-```
+Do not continue to GitHub authentication until the account exists and its email is verified.
 
-The scripts check:
+## 2. Check the current computer
 
-- Git installed;
-- GitHub CLI installed;
-- GitHub authentication active;
-- Git commit name configured;
-- Git commit email configured.
+If this repository is available locally, run the read-only health check.
 
-They deliberately do not display authentication tokens.
+macOS / Linux:
 
+    bash setup/check-setup.sh
 
-## 12. Prove the whole workflow
+Windows PowerShell:
 
-After all setup checks pass, follow [first-project.md](first-project.md).
+    powershell -ExecutionPolicy Bypass -File setup/check-setup.ps1
 
-That final exercise verifies the complete student workflow:
+If the repository is not local yet, check individually:
 
-```text
-local files → localhost → Git commit → GitHub → GitHub Pages
-```
+    git --version
+    gh --version
+    code --version
 
-Do not consider first-day setup complete until the student has either finished that path or deliberately chosen to stop before publishing.
+Missing commands determine which steps are needed.
+
+## 3. Git
+
+If Git is missing, follow [git.md](git.md).
+
+Do not replace an already working Git installation just because another installer is preferred.
+
+## 4. GitHub CLI and authentication
+
+If gh is missing, follow [../recipes/github-cli.md](../recipes/github-cli.md).
+
+Authenticate with the browser flow:
+
+    gh auth login --web
+    gh auth setup-git
+    gh auth status
+
+Never ask the student to paste a password, 2FA code, token, recovery code, or cookie into chat.
+
+## 5. Git identity
+
+Inspect:
+
+    git config --global user.name
+    git config --global user.email
+
+If either is missing, ask the student what name/email they want on commits. Do not invent them.
+
+Then verify the values after setting them.
+
+## 6. VS Code
+
+If VS Code is missing, follow [vscode.md](vscode.md).
+
+Then follow [vscode-github.md](vscode-github.md) for GitHub integration when needed.
+
+## 7. Coding AI
+
+Follow [copilot.md](copilot.md) for the supported GitHub Copilot setup and student/free options.
+
+The coding AI should be able to read this repository and route itself using the root AGENTS.md.
+
+## 8. Local web preview
+
+For simple browser projects, install/use Live Server as described in [live-server.md](live-server.md).
+
+If the student asks what localhost means, use [local-server.md](local-server.md).
+
+## 9. Optional GitHub Education
+
+If relevant, follow [github-education.md](github-education.md).
+
+This is useful but is not required before the student can begin coding.
+
+## 10. Final check
+
+Verify:
+
+    git --version
+    gh --version
+    gh auth status
+    git config --global user.name
+    git config --global user.email
+
+Also verify VS Code opens successfully.
+
+## 11. Prove the workflow
+
+Finish with [first-project.md](first-project.md).
+
+That verifies:
+
+    edit locally
+      ↓
+    localhost
+      ↓
+    Git commit
+      ↓
+    GitHub
+      ↓
+    GitHub Pages
+      ↓
+    public site
+
+Only then is the first-day setup proven end-to-end.

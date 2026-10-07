@@ -1,19 +1,36 @@
-# Kakkoi School AI Handbook
+# Kakkoi School Code — AI routing index
 
-Single entry point:
+This repository is the single entry point for coding AIs helping Kakkoi School students.
+
+Root:
 https://github.com/KakkoiSchool/ai-handbook
 
-AI assistants: read this router first and follow exactly one matching route:
+Agent router:
 https://github.com/KakkoiSchool/ai-handbook/blob/main/AGENTS.md
 
-Do not make the student choose documentation.
-Do not reconstruct a second routing table from memory.
-Classify the student's task, then jump directly from AGENTS.md to the authoritative instructions it names.
+Routes:
 
-Examples:
-- setup -> Kakkoi setup instructions
-- GitHub Pages -> Kakkoi GitHub Pages instructions
-- browser game -> official LittleJS-AI
-- multiplayer -> KakkoiDev/p2p-core
+First-time computer setup:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/README.md
 
-Verify the final result before claiming success.
+Browser game creation/editing:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/games.md
+
+Authoritative game AI instructions:
+https://github.com/KilledByAPixel/LittleJS-AI
+
+Git / GitHub operations:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/README.md
+
+GitHub Pages:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/github-pages.md
+
+Multiplayer:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/multiplayer.md
+
+Rules:
+1. The student should not have to choose a recipe for you.
+2. Read existing-project instructions first.
+3. Route to the authoritative source instead of duplicating it.
+4. Verify the final user-visible result before saying the task succeeded.
+5. Never ask for passwords, 2FA codes, tokens, private keys, recovery codes, or session cookies.

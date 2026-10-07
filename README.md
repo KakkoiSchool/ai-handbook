@@ -1,73 +1,42 @@
-# Kakkoi School AI Handbook
+# Kakkoi School Code
 
-This repository is the **single entry point for Kakkoi School coding assistants**.
+This repository is the **single entry point for coding AIs helping Kakkoi School students**.
 
-A student should only need to give their AI this URL:
+Students should not need to know which recipe, framework, plugin, or documentation site to use. Give the AI this repository and describe the task. The AI routes itself.
 
-https://github.com/KakkoiSchool/ai-handbook
+## Student prompt
 
-Then describe what they want.
+For a new computer:
 
-For example:
+> Read https://github.com/KakkoiSchool/ai-handbook and set up this computer for Kakkoi School.
 
-> Read the Kakkoi School handbook and help me set up this computer.
+For anything else:
 
-> Read the Kakkoi School handbook and make me a browser game.
+> Read https://github.com/KakkoiSchool/ai-handbook and help me with this project.
 
-> Read the Kakkoi School handbook and publish my site with GitHub Pages.
-
-The student does **not** need to know which tool, framework, recipe, or external documentation is required.
+That is enough.
 
 ## For AI assistants
 
-Read [AGENTS.md](AGENTS.md).
+Read [AGENTS.md](AGENTS.md) first.
 
-It is a flat router:
+It tells you where to go next based on the student's request.
 
-    student request
-          ↓
-       AGENTS.md
-          ↓
-    actual authoritative instructions
+| Student needs | Route |
+|---|---|
+| First-time computer setup | [setup/README.md](setup/README.md) |
+| Make or modify a browser game | [recipes/games.md](recipes/games.md) → official LittleJS-AI |
+| Git / GitHub operation | [recipes/README.md](recipes/README.md) |
+| Publish a site | [recipes/github-pages.md](recipes/github-pages.md) |
+| Multiplayer | [recipes/multiplayer.md](recipes/multiplayer.md) |
+| Existing project work | Read that project's own instructions first |
 
-Examples:
+## Principle
 
-    setup          → setup/README.md
-    GitHub Pages   → recipes/github-pages.md
-    browser game   → LittleJS-AI
-    multiplayer    → p2p-core
-    create repo    → recipes/create-repository.md
+This repository is a **router**, not a replacement for upstream documentation.
 
-Do not make the student navigate documentation themselves. Determine the task and route directly to the matching instructions.
+When an authoritative project already provides AI instructions, use them directly instead of copying them here.
 
-## Why
-
-Kakkoi School should not duplicate documentation maintained by another project.
-
-For example, game creation is already documented for coding AIs by the official LittleJS project, so the router sends game work directly to:
+For browser games, Kakkoi School uses LittleJS and the authoritative AI game-development instructions live at:
 
 https://github.com/KilledByAPixel/LittleJS-AI
-
-Likewise, multiplayer work routes directly to:
-
-https://github.com/KakkoiDev/p2p-core
-
-Kakkoi School only maintains instructions that are actually Kakkoi-specific or need a stable student workflow.
-
-## 日本語
-
-学生はこのURLだけをAIに渡せば大丈夫です：
-
-https://github.com/KakkoiSchool/ai-handbook
-
-あとは、やりたいことを普通に伝えてください。
-
-例：
-
-> このKakkoi Schoolのハンドブックを読んで、パソコンのセットアップを手伝ってください。
-
-> このKakkoi Schoolのハンドブックを読んで、ブラウザゲームを作ってください。
-
-> このKakkoi Schoolのハンドブックを読んで、GitHub Pagesで公開してください。
-
-AIが必要な手順や公式ドキュメントを自分で選びます。
