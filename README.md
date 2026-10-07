@@ -1,5 +1,7 @@
 # Kakkoi School AI Handbook
 
+**New student? Start with [`START-HERE.md`](START-HERE.md).**
+
 A small operational handbook for AI assistants helping Kakkoi School students.
 
 The student should be able to say:
@@ -52,7 +54,9 @@ There is also a copy-ready prompt at [`templates/student-setup-prompt.md`](templ
 | Student wants to… | Read |
 |---|---|
 | Set up a new computer | [`recipes/student-setup.md`](recipes/student-setup.md) |
-| Set up a new student's computer | [`setup/README.md`](setup/README.md) |
+| Set up a new student's computer | [`START-HERE.md`](START-HERE.md) → [`setup/README.md`](setup/README.md) |
+| Run the setup health check | [`setup/check-setup.sh`](setup/check-setup.sh) / [`setup/check-setup.ps1`](setup/check-setup.ps1) |
+| Build and publish the student's first site | [`setup/first-project.md`](setup/first-project.md) |
 | Create a GitHub account | [`setup/github-account.md`](setup/github-account.md) |
 | Install Git | [`setup/git.md`](setup/git.md) |
 | Install VS Code | [`setup/vscode.md`](setup/vscode.md) |
