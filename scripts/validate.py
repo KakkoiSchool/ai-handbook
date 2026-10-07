@@ -3,7 +3,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 required = [
     'README.md', 'AGENTS.md', 'llms.txt',
-    'recipes/github-cli.md', 'recipes/create-repository.md',
+    'recipes/student-setup.md', 'recipes/github-cli.md', 'recipes/create-repository.md',
     'recipes/delete-repository.md', 'recipes/github-pages.md',
     'recipes/browser-fallback.md', 'browser/package.json',
     'setup/README.md', 'setup/github-account.md', 'setup/git.md',
