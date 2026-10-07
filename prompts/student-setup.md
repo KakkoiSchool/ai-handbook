@@ -14,6 +14,10 @@ Read:
 
 Then guide me through the setup in order.
 
+First, check whether I already have a GitHub account.
+If I do not, read setup/github-account.md and help me create one safely.
+Wait until the account exists and the email is verified before continuing to Git/GitHub CLI setup.
+
 Rules:
 - Check whether something is already installed before installing it.
 - Prefer GitHub CLI for GitHub-side actions.
