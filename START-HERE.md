@@ -14,6 +14,8 @@ Then say:
 Read the Kakkoi School AI Handbook first.
 
 Help me set up this computer for Kakkoi School.
+First check whether I already have a GitHub account.
+If I do not, follow setup/github-account.md and help me create one safely before continuing.
 Follow setup/README.md in order.
 Use the handbook instead of guessing commands.
 Ask me only when you need information that cannot be discovered safely,
