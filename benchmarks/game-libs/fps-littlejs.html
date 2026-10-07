@@ -7,8 +7,11 @@ import * as L from './node_modules/littlejsengine/dist/littlejs.esm.js';
 import { createMeter } from './common.js';
 import { FW, FH, makeFPSState, stepFPS } from './fps-style-common.js';
 
+const q=new URLSearchParams(location.search);
+const variable=q.get('variable')==='1';
+if(variable) L.setEngineVariableStep(true);
 const s=makeFPSState();
-const tick=createMeter('FPS262626-style LittleJS',5,{suite:'fps262626-style'});
+const tick=createMeter(variable ? 'FPS262626-style LittleJS variable-step' : 'FPS262626-style LittleJS',5,{suite:'fps262626-style',variableStep:variable});
 const color=(hex,a=1)=>{
   const h=hex.replace('#','');
   return new L.Color(parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255,a);

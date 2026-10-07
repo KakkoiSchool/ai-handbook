@@ -116,6 +116,24 @@ export function createMeter(engine, n, extra = {}) {
         over20ms: +(100 * intervals.filter(v => v > 20).length / intervals.length).toFixed(1),
         ...extra,
       };
+      try {
+        const payload = {
+          type: 'kakkoi-benchmark-result',
+          result: window.benchResult,
+          href: location.href,
+          measuredAt: new Date().toISOString(),
+        };
+        if (window.parent !== window) {
+          window.parent.postMessage(payload, location.origin);
+        }
+        const key = 'kakkoi-game-benchmark-device-results-v1';
+        const saved = JSON.parse(localStorage.getItem(key) || '[]');
+        saved.push(payload);
+        while (saved.length > 100) saved.shift();
+        localStorage.setItem(key, JSON.stringify(saved));
+      } catch (error) {
+        console.warn('Could not publish benchmark result', error);
+      }
       console.log('BENCH_RESULT ' + JSON.stringify(window.benchResult));
     }
   };
