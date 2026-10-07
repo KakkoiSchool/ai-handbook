@@ -1,75 +1,102 @@
-# Kakkoi School AI Router
+# Kakkoi School AI router
 
 You are helping a Kakkoi School student.
 
-This file is a **router**. Do not make the student choose documentation. Determine what they are trying to do, open the matching instructions below, and follow them.
+The student may give you only this repository URL and a short request. Your first job is to identify the task and route yourself to the right instructions.
 
-Keep routing flat: **one decision, one jump to the actual instructions**. Do not send the student through an index of indexes.
+Do not make the student choose a recipe or documentation file for you.
 
-If a task spans several areas, use only the routes that are actually needed, in the order the work requires.
+## 1. Existing project instructions come first
 
-## Route the task
+If you are working inside an existing repository, first inspect its local instructions when present:
 
-| Student wants to… | Go directly to… |
+- AGENTS.md
+- CLAUDE.md
+- README.md
+- other clearly named project instructions
+
+Preserve the project's existing architecture unless the student explicitly asks to change it.
+
+Then use this repository for cross-project operations such as GitHub, publishing, multiplayer, or Kakkoi School conventions.
+
+## 2. Route by intent
+
+| Student intent | Read next |
 |---|---|
-| Set up a new/blank computer or start from scratch | [setup/README.md](setup/README.md) |
-| Create a GitHub account | [setup/github-account.md](setup/github-account.md) |
-| Install/configure Git | [setup/git.md](setup/git.md) |
-| Install VS Code | [setup/vscode.md](setup/vscode.md) |
-| Connect VS Code to GitHub | [setup/vscode-github.md](setup/vscode-github.md) |
-| Set up Copilot | [setup/copilot.md](setup/copilot.md) |
-| Apply for GitHub Education | [setup/github-education.md](setup/github-education.md) |
-| Install/use Live Server | [setup/live-server.md](setup/live-server.md) |
-| Understand localhost/local servers | [setup/local-server.md](setup/local-server.md) |
-| Create a first local project | [recipes/create-local-project.md](recipes/create-local-project.md) |
-| Install/use GitHub CLI | [recipes/github-cli.md](recipes/github-cli.md) |
-| Create a GitHub repository | [recipes/create-repository.md](recipes/create-repository.md) |
-| Create a repository in KakkoiSchool | [recipes/kakkoischool-repository.md](recipes/kakkoischool-repository.md) |
-| Clone a repository | [recipes/clone-repository.md](recipes/clone-repository.md) |
-| Connect an existing folder to GitHub | [recipes/connect-local-repository.md](recipes/connect-local-repository.md) |
-| Commit and push changes | [recipes/commit-and-push.md](recipes/commit-and-push.md) |
-| Work with branches | [recipes/branches.md](recipes/branches.md) |
-| Open a pull request | [recipes/pull-request.md](recipes/pull-request.md) |
-| Merge a pull request | [recipes/merge-pull-request.md](recipes/merge-pull-request.md) |
-| Create/close issues | [recipes/issues.md](recipes/issues.md) |
-| Create a release | [recipes/releases.md](recipes/releases.md) |
-| Add/remove collaborators | [recipes/collaborators.md](recipes/collaborators.md) |
-| Publish a site with GitHub Pages | [recipes/github-pages.md](recipes/github-pages.md) |
-| Rename a repository | [recipes/rename-repository.md](recipes/rename-repository.md) |
-| Archive/unarchive a repository | [recipes/archive-repository.md](recipes/archive-repository.md) |
-| Delete a repository | [recipes/delete-repository.md](recipes/delete-repository.md) |
-| Change repository visibility | [recipes/change-visibility.md](recipes/change-visibility.md) |
-| Fork a repository | [recipes/fork-repository.md](recipes/fork-repository.md) |
-| Transfer a repository | [recipes/transfer-repository.md](recipes/transfer-repository.md) |
-| Make or substantially modify a browser game | **Read and follow the official [LittleJS-AI](https://github.com/KilledByAPixel/LittleJS-AI) repository directly** |
-| Add browser multiplayer/networking | **Read and follow [KakkoiDev/p2p-core](https://github.com/KakkoiDev/p2p-core) directly** |
-| Use a browser because GitHub API/CLI is unavailable | [recipes/browser-fallback.md](recipes/browser-fallback.md) |
+| Set up/install everything, new computer, missing Git/GitHub/VS Code | [setup/README.md](setup/README.md) |
+| Create or modify a browser game | [recipes/games.md](recipes/games.md) |
+| Create/clone/rename/delete a repository, commit, branch, PR, issue, release, collaborator | [recipes/README.md](recipes/README.md) |
+| Publish a website | [recipes/github-pages.md](recipes/github-pages.md) |
+| Add multiplayer | [recipes/multiplayer.md](recipes/multiplayer.md) |
+| Browser/UI fallback for GitHub | [recipes/browser-fallback.md](recipes/browser-fallback.md) |
+| Ordinary work in an existing project | Follow that project's own instructions |
 
-## Existing projects
+A task can use more than one route. For example, making a multiplayer game means use the game instructions for the game and the multiplayer recipe for networking.
 
-Before changing an existing project, read that project's own README.md, AGENTS.md, CLAUDE.md, or equivalent instructions.
+## 3. Browser games: hand off to LittleJS-AI
 
-Preserve its existing stack unless the student explicitly asks to migrate.
+For a new browser game, Kakkoi School uses **LittleJS**.
 
-For a new Kakkoi School browser game, route to **LittleJS-AI**. Do not invent a Kakkoi-specific game framework.
+Do not reconstruct LittleJS guidance from memory and do not maintain a second LittleJS handbook here.
 
-For a LittleJS game that also needs multiplayer, use both authoritative sources:
-1. LittleJS-AI for the game;
-2. p2p-core for networking.
+Read and follow:
 
-## Universal rules
+https://github.com/KilledByAPixel/LittleJS-AI
 
-These apply regardless of route:
+Start with its README.md and AGENTS.md, then use its relevant skills, templates, helpers, and API reference.
 
-- Never ask the student to paste passwords, 2FA codes, private keys, session cookies, recovery codes, or GitHub tokens into chat.
-- Destructive/high-impact actions require explicit student intent: delete, transfer, visibility change, force-push, unmerged branch deletion, collaborator removal, Pages removal.
-- KakkoiSchool ownership and a student's personal account are different targets. Never silently substitute one for the other.
-- Verify the final result before claiming success.
-- Prefer the documented solution over inventing a parallel framework, service, or workflow.
-- If the matched instructions point to an upstream authoritative project, follow that project instead of copying its documentation back into this repository.
+That upstream repository is the source of truth for LittleJS game creation.
 
-## If nothing matches
+If an existing project already uses another engine, preserve it unless the student explicitly asks to migrate.
 
-Do not guess a new Kakkoi standard.
+## 4. GitHub capability order
 
-First inspect the current project's own documentation. If no existing route or project instruction covers the task, explain what is missing and use the simplest reversible approach.
+For GitHub-side operations, use the first available option:
+
+1. native connected GitHub tool/API;
+2. GitHub CLI (gh);
+3. local git for local Git operations;
+4. browser UI / safe Playwright fallback.
+
+Do not invent another workflow when a repository recipe already covers the operation.
+
+## 5. Verify before claiming success
+
+Verify the actual outcome:
+
+- repository exists at the intended owner/name;
+- push reached the intended remote;
+- PR is open or merged as requested;
+- Pages URL loads;
+- game renders and controls work;
+- multiplayer works in the intended environment.
+
+Do not say done until the relevant user-visible result is verified.
+
+## 6. Authentication and secrets
+
+Never ask a student to paste passwords, 2FA codes, GitHub tokens, recovery codes, private keys, or session cookies into chat.
+
+Prefer GitHub browser authentication:
+
+    gh auth login --web
+    gh auth setup-git
+    gh auth status
+
+## 7. KakkoiSchool ownership
+
+KakkoiSchool/project is not interchangeable with a student's personal repository.
+
+If the student asks for a KakkoiSchool repository and lacks permission, report the permission problem. Do not silently create a personal substitute.
+
+## 8. Prefer existing layers
+
+Before adding a dependency, framework, helper, or abstraction, check whether the current project or its authoritative documentation already solves the problem.
+
+For Kakkoi School browser games:
+
+- game engine and game helpers → LittleJS / LittleJS-AI;
+- multiplayer → KakkoiDev/p2p-core;
+- repository/deployment → the GitHub recipes here.
+
+Do not create a Kakkoi-specific wrapper around an upstream library without a demonstrated need.
