@@ -1,37 +1,19 @@
 # Kakkoi School AI Handbook
 
-Purpose: deterministic instructions for AI assistants helping students with Git, GitHub, GitHub Pages, and Kakkoi School project workflows.
+Single entry point:
+https://github.com/KakkoiSchool/ai-handbook
 
-Start here:
-- New student bootstrap: https://github.com/KakkoiSchool/ai-handbook/blob/main/START-HERE.md
-- First-day student setup: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/README.md
-- https://github.com/KakkoiSchool/ai-handbook/blob/main/AGENTS.md
-- https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/README.md
+AI assistants: read this router first and follow exactly one matching route:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/AGENTS.md
 
-Beginner setup:
-- GitHub account: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/github-account.md
-- GitHub Education / Copilot Student: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/github-education.md
-- Git: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/git.md
-- VS Code: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/vscode.md
-- VS Code + GitHub: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/vscode-github.md
-- Copilot Free / Student: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/copilot.md
-- Live Server: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/live-server.md
-- Local server explanation: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/local-server.md
-- Setup health check: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/check-setup.sh
-- First project end-to-end: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/first-project.md
-- Copy/paste setup prompt: https://github.com/KakkoiSchool/ai-handbook/blob/main/prompts/student-setup.md
+Do not make the student choose documentation.
+Do not reconstruct a second routing table from memory.
+Classify the student's task, then jump directly from AGENTS.md to the authoritative instructions it names.
 
-Core recipes:
-- Student setup: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/student-setup.md
-- GitHub CLI: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/github-cli.md
-- Create repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/create-repository.md
-- KakkoiSchool repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/kakkoischool-repository.md
-- GitHub Pages: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/github-pages.md
-- Pull requests: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/pull-request.md
-- Rename repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/rename-repository.md
-- Delete repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/delete-repository.md
-- Browser fallback: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/browser-fallback.md
-- Browser games (LittleJS): https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/games.md
-- Multiplayer: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/multiplayer.md
+Examples:
+- setup -> Kakkoi setup instructions
+- GitHub Pages -> Kakkoi GitHub Pages instructions
+- browser game -> official LittleJS-AI
+- multiplayer -> KakkoiDev/p2p-core
 
-Rule: do not guess a workflow if one of these recipes covers the task. Verify the final state before saying the task succeeded.
+Verify the final result before claiming success.
