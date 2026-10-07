@@ -1,0 +1,60 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>LittleJS benchmark</title>
+<style>html,body{margin:0;overflow:hidden;background:#111}</style>
+<script type="module">
+import * as L from './node_modules/littlejsengine/dist/littlejs.esm.js';
+import { W, H, SIZE, params, position, velocity, createMeter } from './common.js';
+
+const { n } = params();
+const tick = createMeter('LittleJS', n);
+let halfW = W / 2;
+let halfH = H / 2;
+
+class BenchObject extends L.EngineObject {
+  constructor(i) {
+    const p = position(i);
+    const v = velocity(i);
+    super(
+      L.vec2(p.x - halfW + SIZE / 2, halfH - p.y - SIZE / 2),
+      L.vec2(SIZE, SIZE),
+      undefined,
+      0,
+      new L.Color(0.35, 0.71, 0.94, 1),
+    );
+    this.velocity = L.vec2(v.x, -v.y);
+    this.gravityScale = 0;
+  }
+
+  update() {
+    const p = this.pos;
+    const v = this.velocity;
+    const minX = -halfW + SIZE / 2;
+    const maxX = halfW - SIZE / 2;
+    const minY = -halfH + SIZE / 2;
+    const maxY = halfH - SIZE / 2;
+    if (p.x < minX) { p.x = minX; v.x = Math.abs(v.x); }
+    else if (p.x > maxX) { p.x = maxX; v.x = -Math.abs(v.x); }
+    if (p.y < minY) { p.y = minY; v.y = Math.abs(v.y); }
+    else if (p.y > maxY) { p.y = maxY; v.y = -Math.abs(v.y); }
+    super.update();
+  }
+}
+
+function gameInit() {
+  L.setCanvasFixedSize(L.vec2(W, H));
+  L.setCameraPos(L.vec2(0, 0));
+  L.setCameraScale(1);
+  L.setCanvasClearColor(new L.Color(0.08, 0.09, 0.13, 1));
+  for (let i = 0; i < n; i++) new BenchObject(i);
+}
+
+L.engineInit(
+  gameInit,
+  () => {},
+  () => {},
+  () => {},
+  tick,
+  [],
+);
+</script>
