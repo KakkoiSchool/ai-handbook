@@ -34,10 +34,24 @@ If the student is starting with almost nothing installed, use the complete first
 
 - [`setup/README.md`](setup/README.md) — GitHub account → Git → GitHub CLI → VS Code → GitHub/Copilot → Live Server → localhost → commit/push → GitHub Pages
 
+## Start here for a new student
+
+For a first computer or a fresh setup, use:
+
+[`recipes/student-setup.md`](recipes/student-setup.md)
+
+A student can simply tell their AI:
+
+> Read https://github.com/KakkoiSchool/ai-handbook and follow `recipes/student-setup.md` to set up my computer.
+
+There is also a copy-ready prompt at [`templates/student-setup-prompt.md`](templates/student-setup-prompt.md).
+
 ## Common tasks
+
 
 | Student wants to… | Read |
 |---|---|
+| Set up a new computer | [`recipes/student-setup.md`](recipes/student-setup.md) |
 | Set up a new student's computer | [`setup/README.md`](setup/README.md) |
 | Create a GitHub account | [`setup/github-account.md`](setup/github-account.md) |
 | Install Git | [`setup/git.md`](setup/git.md) |
