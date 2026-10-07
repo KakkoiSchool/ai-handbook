@@ -1,0 +1,7 @@
+# Browser authentication state: may contain session cookies.
+.playwright-profile/
+playwright-report/
+test-results/
+node_modules/
+*.png
+.DS_Store
