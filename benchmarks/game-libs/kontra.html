@@ -4,42 +4,113 @@
 <style>html,body{margin:0;overflow:hidden;background:#111}canvas{display:block}</style>
 <canvas id="game" width="800" height="600"></canvas>
 <script type="module">
-import { init, Sprite, GameLoop } from './node_modules/kontra/kontra.mjs';
+import { init, Sprite, GameLoop, Quadtree, collides } from './node_modules/kontra/kontra.mjs';
 import { W, H, SIZE, params, position, velocity, createMeter } from './common.js';
 
+const q = new URLSearchParams(location.search);
+const mode = q.get('mode') || 'movement';
 const { n } = params();
-const canvas = document.querySelector('#game');
-init(canvas);
+init(document.querySelector('#game'));
 
-const sprites = [];
-for (let i = 0; i < n; i++) {
-  const p = position(i);
-  const v = velocity(i);
-  sprites.push(Sprite({
-    x: p.x, y: p.y,
-    width: SIZE, height: SIZE,
-    color: '#5ab4f0',
-    dx: v.x * 60,
-    dy: v.y * 60,
-  }));
-}
-
-const tick = createMeter('Kontra', n);
-const loop = GameLoop({
-  update(dt) {
-    for (const s of sprites) {
-      s.x += s.dx * dt;
-      s.y += s.dy * dt;
-      if (s.x < 0) { s.x = 0; s.dx = Math.abs(s.dx); }
-      else if (s.x > W - SIZE) { s.x = W - SIZE; s.dx = -Math.abs(s.dx); }
-      if (s.y < 0) { s.y = 0; s.dy = Math.abs(s.dy); }
-      else if (s.y > H - SIZE) { s.y = H - SIZE; s.dy = -Math.abs(s.dy); }
+if (mode === 'collision') {
+  const t = 16;
+  const wallRects = [
+    { x: 0, y: 0, w: W, h: t },
+    { x: 0, y: H - t, w: W, h: t },
+    { x: 0, y: 0, w: t, h: H },
+    { x: W - t, y: 0, w: t, h: H },
+  ];
+  for (let row = 0; row < 4; row++) {
+    const y = 90 + row * 120;
+    for (let col = 0; col < 4; col++) {
+      const x = 100 + col * 170 + (row % 2) * 35;
+      wallRects.push((row + col) % 2 === 0
+        ? { x, y, w: 72, h: 18 }
+        : { x, y, w: 18, h: 72 });
     }
-  },
-  render() {
-    for (const s of sprites) s.render();
-    tick();
-  },
-});
-loop.start();
+  }
+  const walls = wallRects.map(w => Sprite({
+    x: w.x, y: w.y, width: w.w, height: w.h, color: '#5a6270',
+  }));
+  const wallTree = Quadtree({
+    bounds: { x: 0, y: 0, width: W, height: H },
+    maxDepth: 5,
+    maxObjects: 6,
+  });
+  wallTree.add(walls);
+
+  const s = 12;
+  const movers = [];
+  for (let i = 0; i < n; i++) {
+    const base = position(i);
+    const v = velocity(i);
+    movers.push(Sprite({
+      x: 24 + (base.x % (W - 48 - s)),
+      y: 24 + (base.y % (H - 48 - s)),
+      width: s,
+      height: s,
+      color: '#5ab4f0',
+      dx: v.x * 60,
+      dy: v.y * 60,
+    }));
+  }
+
+  const tick = createMeter('Kontra + Quadtree collision', n);
+  GameLoop({
+    update(dt) {
+      for (const o of movers) {
+        const oldX = o.x;
+        const oldY = o.y;
+        o.x += o.dx * dt;
+        o.y += o.dy * dt;
+        let hit = false;
+        for (const wall of wallTree.get(o)) {
+          if (collides(o, wall)) { hit = true; break; }
+        }
+        if (hit) {
+          o.x = oldX;
+          o.y = oldY;
+          o.dx *= -1;
+          o.dy *= -1;
+        }
+      }
+    },
+    render() {
+      for (const wall of walls) wall.render();
+      for (const o of movers) o.render();
+      tick();
+    },
+  }).start();
+} else {
+  const sprites = [];
+  for (let i = 0; i < n; i++) {
+    const p = position(i);
+    const v = velocity(i);
+    sprites.push(Sprite({
+      x: p.x, y: p.y,
+      width: SIZE, height: SIZE,
+      color: '#5ab4f0',
+      dx: v.x * 60,
+      dy: v.y * 60,
+    }));
+  }
+
+  const tick = createMeter('Kontra', n);
+  GameLoop({
+    update(dt) {
+      for (const s of sprites) {
+        s.x += s.dx * dt;
+        s.y += s.dy * dt;
+        if (s.x < 0) { s.x = 0; s.dx = Math.abs(s.dx); }
+        else if (s.x > W - SIZE) { s.x = W - SIZE; s.dx = -Math.abs(s.dx); }
+        if (s.y < 0) { s.y = 0; s.dy = Math.abs(s.dy); }
+        else if (s.y > H - SIZE) { s.y = H - SIZE; s.dy = -Math.abs(s.dy); }
+      }
+    },
+    render() {
+      for (const s of sprites) s.render();
+      tick();
+    },
+  }).start();
+}
 </script>
