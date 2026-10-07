@@ -165,8 +165,14 @@ for (const suite of suites) {
       const url = base + '/' + test.page + '?n=' + n + (test.query || '');
       await page.goto(url, { waitUntil: 'domcontentloaded' });
       try {
-        await page.waitForFunction(() => window.benchResult, null, { timeout: 120000 });
-        const result = await page.evaluate(() => window.benchResult);
+        const started = Date.now();
+        let result = null;
+        while (!result && Date.now() - started < 45000) {
+          if (errors.length) throw new Error(errors[0]);
+          await page.waitForTimeout(250);
+          result = await page.evaluate(() => window.benchResult || null);
+        }
+        if (!result) throw new Error('benchmark did not produce a result within 45 seconds');
         results.push({ suite: suite.name, id: test.id, ...result, errors });
         console.log(JSON.stringify(results.at(-1)));
       } catch (error) {
