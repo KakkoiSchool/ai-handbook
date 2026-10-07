@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FPS262626-style raw Canvas workload</title>
+<style>html,body{margin:0;overflow:hidden;background:#030007}canvas{display:block;width:100vw;height:auto;max-height:100vh}</style>
+<canvas id="game" width="1280" height="720"></canvas>
+<script type="module">
+import { createMeter } from './common.js';
+import { makeFPSState, stepFPS } from './fps-style-common.js';
+import { drawFPSCanvas } from './fps-canvas-render.js';
+
+const canvas=document.querySelector('#game');
+const ctx=canvas.getContext('2d');
+const state=makeFPSState();
+const tick=createMeter('FPS262626-style raw Canvas',5,{suite:'fps262626-style'});
+let last=performance.now();
+
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000||.016);
+  last=now;
+  stepFPS(state,dt);
+  drawFPSCanvas(ctx,state);
+  tick();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>

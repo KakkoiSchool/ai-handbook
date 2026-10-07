@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FPS262626-style Phaser workload</title>
+<style>html,body{margin:0;overflow:hidden;background:#030007}canvas{display:block;width:100vw;height:auto;max-height:100vh}</style>
+<script type="module">
+import Phaser from './node_modules/phaser/dist/phaser.esm.js';
+import { createMeter } from './common.js';
+import { FW, FH, makeFPSState, stepFPS } from './fps-style-common.js';
+
+const s=makeFPSState();
+const tick=createMeter('FPS262626-style Phaser 4',5,{suite:'fps262626-style'});
+const num=(hex)=>parseInt(hex.replace('#',''),16);
+const alphaColor=(hex)=>num(hex);
+
+new Phaser.Game({
+ type:Phaser.WEBGL,width:FW,height:FH,backgroundColor:'#030007',
+ fps:{target:1000,smoothStep:false},
+ scene:{
+  create(){
+   this.g=this.add.graphics();
+   this.labels=s.floatingTexts.map(t=>this.add.text(t.x,t.y,t.text,{fontFamily:'monospace',fontSize:t.big?'24px':'16px',color:t.color}).setOrigin(.5));
+   this.game.events.on(Phaser.Core.Events.POST_RENDER,tick);
+  },
+  update(_time,delta){
+   stepFPS(s,Math.min(.05,delta/1000));
+   const g=this.g;g.clear();
+   g.fillStyle(0x07000d,1);g.fillRect(0,0,FW,FH);
+   const hy=FH*.65,vx=FW/2;
+   const line=(x1,y1,x2,y2,w,c,a=1)=>{g.lineStyle(w,alphaColor(c),a);g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.strokePath();};
+   line(0,hy,FW,hy,1,'#bf00ff',.16);
+   for(let x=-FW;x<=FW*2;x+=120) line(vx,hy,x,FH,1,'#bf00ff',.16);
+   for(let y=hy;y<=FH;y+=(FH-y)*.28+14) line(0,y,FW,y,1,'#bf00ff',.16);
+   g.lineStyle(1,0xbf00ff,.08);g.strokeCircle(FW/2,hy-40,180);g.strokeCircle(FW/2,hy-40,260);
+
+   for(const t of s.targets){
+    const r=t.type.radius,c=alphaColor(t.type.color);
+    g.lineStyle(3,c,t.alpha);g.strokeCircle(t.x,t.y,r);
+    for(let i=0;i<4;i++){
+      const a=t.ringRotation+i*Math.PI/2,ca=Math.cos(a),sa=Math.sin(a);
+      const p=(x,y)=>[t.x+x*ca-y*sa,t.y+x*sa+y*ca];
+      const p1=p(r-4,-4),p2=p(r+6,0),p3=p(r-4,4);
+      line(p1[0],p1[1],p2[0],p2[1],2,t.type.color,t.alpha);
+      line(p2[0],p2[1],p3[0],p3[1],2,t.type.color,t.alpha);
+    }
+    g.lineStyle(1.5,0xffffff,.4*t.alpha);g.strokeCircle(t.x,t.y,r*.55);
+    g.fillStyle(0xffffff,t.alpha);g.fillCircle(t.x,t.y,r*.28);
+    g.lineStyle(2,c,.8*t.alpha);g.strokeCircle(t.x,t.y,r+8);
+   }
+
+   for(const tr of s.tracers) line(tr.startX,tr.startY,tr.endX,tr.endY,3,'#00f0ff',tr.alpha);
+   for(const p of s.particles){g.fillStyle(alphaColor(p.color),p.alpha);g.fillRect(p.x-p.size/2,p.y-p.size/2,p.size,p.size);}
+   s.floatingTexts.forEach((t,i)=>{const l=this.labels[i];l.setPosition(t.x,t.y);l.setAlpha(t.alpha);l.setText(t.text);});
+
+   if(s.muzzleFlash>0){
+    g.fillStyle(0xbf00ff,.18*s.muzzleFlash);g.fillRect(0,0,FW,FH);
+    g.fillStyle(0xbf00ff,.12*s.muzzleFlash);g.fillCircle(740,FH-20,140);
+    g.fillStyle(0xff007f,.22*s.muzzleFlash);g.fillCircle(740,FH-20,70);
+   }
+
+   const x=s.crosshair.x,y=s.crosshair.y,gap=8,len=18;
+   g.fillStyle(0x00f0ff,1);g.fillCircle(x,y,2.5);
+   line(x,y-gap,x,y-gap-len,1.8,'#00f0ff');
+   line(x,y+gap,x,y+gap+len,1.8,'#00f0ff');
+   line(x-gap,y,x-gap-len,y,1.8,'#00f0ff');
+   line(x+gap,y,x+gap+len,y,1.8,'#00f0ff');
+   g.lineStyle(1,0x00f0ff,.25);g.strokeCircle(x,y,gap+len+3);
+  }
+ }
+});
+</script>

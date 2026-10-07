@@ -7,81 +7,6 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
-const phaserPage = [
-  '<!doctype html>',
-  '<meta charset="utf-8">',
-  '<title>Phaser benchmark</title>',
-  '<style>html,body{margin:0;overflow:hidden;background:#111}canvas{display:block}</style>',
-  '<script type="module">',
-  "import Phaser from './node_modules/phaser/dist/phaser.esm.js';",
-  "import { W, H, SIZE, position, velocity, createMeter } from './common.js';",
-  "const q = new URLSearchParams(location.search);",
-  "const mode = q.get('mode') || 'movement';",
-  "const n = Math.max(1, Math.min(10000, Number(q.get('n')) || 500));",
-  "const tick = createMeter(mode === 'collision' ? 'Phaser 4 Arcade collision' : 'Phaser 4', n);",
-  "function walls() {",
-  "  const t = 16;",
-  "  const a = [{x:0,y:0,w:W,h:t},{x:0,y:H-t,w:W,h:t},{x:0,y:0,w:t,h:H},{x:W-t,y:0,w:t,h:H}];",
-  "  for (let row=0; row<4; row++) {",
-  "    const y = 90 + row * 120;",
-  "    for (let col=0; col<4; col++) {",
-  "      const x = 100 + col * 170 + (row % 2) * 35;",
-  "      a.push((row+col)%2===0 ? {x,y,w:72,h:18} : {x,y,w:18,h:72});",
-  "    }",
-  "  }",
-  "  return a;",
-  "}",
-  "new Phaser.Game({",
-  "  type: Phaser.WEBGL, width: W, height: H, backgroundColor: '#141820',",
-  "  pixelArt: true, antialias: false, fps: { target: 1000, smoothStep: false },",
-  "  physics: { default: 'arcade', arcade: { gravity: {x:0,y:0}, debug:false } },",
-  "  scene: {",
-  "    create() {",
-  "      if (mode === 'collision') {",
-  "        const movers = this.physics.add.group();",
-  "        const statics = this.physics.add.staticGroup();",
-  "        for (const r of walls()) {",
-  "          const o = this.add.rectangle(r.x+r.w/2, r.y+r.h/2, r.w, r.h, 0x5a6270);",
-  "          this.physics.add.existing(o, true);",
-  "          statics.add(o);",
-  "        }",
-  "        const s = 12;",
-  "        for (let i=0; i<n; i++) {",
-  "          const base = position(i), v = velocity(i);",
-  "          const x = 24 + (base.x % (W - 48 - s));",
-  "          const y = 24 + (base.y % (H - 48 - s));",
-  "          const o = this.add.rectangle(x+s/2, y+s/2, s, s, 0x5ab4f0);",
-  "          this.physics.add.existing(o);",
-  "          o.body.setVelocity(v.x*60, v.y*60);",
-  "          o.body.setBounce(1,1);",
-  "          movers.add(o);",
-  "        }",
-  "        this.physics.add.collider(movers, statics);",
-  "      } else {",
-  "        this.objects = []; this.speeds = [];",
-  "        for (let i=0; i<n; i++) {",
-  "          const p = position(i), v = velocity(i);",
-  "          this.objects.push(this.add.rectangle(p.x,p.y,SIZE,SIZE,0x5ab4f0).setOrigin(0,0));",
-  "          this.speeds.push({x:v.x*60,y:v.y*60});",
-  "        }",
-  "      }",
-  "      this.game.events.on(Phaser.Core.Events.POST_RENDER, tick);",
-  "    },",
-  "    update(_time, delta) {",
-  "      if (mode === 'collision') return;",
-  "      const dt = Math.min(delta,50)/1000;",
-  "      for (let i=0; i<this.objects.length; i++) {",
-  "        const o=this.objects[i], v=this.speeds[i];",
-  "        o.x += v.x*dt; o.y += v.y*dt;",
-  "        if(o.x<0){o.x=0;v.x=Math.abs(v.x)} else if(o.x>W-SIZE){o.x=W-SIZE;v.x=-Math.abs(v.x)}",
-  "        if(o.y<0){o.y=0;v.y=Math.abs(v.y)} else if(o.y>H-SIZE){o.y=H-SIZE;v.y=-Math.abs(v.y)}",
-  "      }",
-  "    }",
-  "  }",
-  "});",
-  '</script>',
-].join('\n');
-
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -92,11 +17,6 @@ const contentTypes = {
 
 const server = http.createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-  if (pathname === '/phaser.html') {
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.end(phaserPage);
-    return;
-  }
   const rel = pathname === '/' ? '/kaplay.html' : pathname;
   const file = path.normalize(path.join(root, rel));
   if (!file.startsWith(root)) {
@@ -152,6 +72,17 @@ const suites = [
       { id: 'phaser', page: 'phaser.html', query: '&mode=collision' },
     ],
   },
+  {
+    name: 'fps262626-style',
+    counts: [5],
+    cases: [
+      { id: 'raw-canvas', page: 'fps-canvas.html' },
+      { id: 'kontra', page: 'fps-kontra.html' },
+      { id: 'kaplay', page: 'fps-kaplay.html' },
+      { id: 'littlejs', page: 'fps-littlejs.html' },
+      { id: 'phaser', page: 'fps-phaser.html' },
+    ],
+  },
 ];
 
 const results = [];
@@ -185,6 +116,73 @@ for (const suite of suites) {
       await page.close();
     }
   }
+}
+
+// Measure the preserved original vibe-coded game without modifying its source.
+{
+  const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+  const errors = [];
+  page.on('pageerror', e => errors.push(String(e.message || e)));
+  page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+  await page.addInitScript(() => localStorage.setItem('fps_sound_muted', 'true'));
+  await page.goto(base + '/reference/fps262626/index.html', { waitUntil: 'domcontentloaded' });
+  await page.locator('#btn-start-game').click();
+
+  const result = await page.evaluate(async () => {
+    const warmup = 60;
+    const target = 240;
+    let frames = 0;
+    let measured = 0;
+    let start = 0;
+    let last = 0;
+    const intervals = [];
+
+    return await new Promise(resolve => {
+      const sample = (now) => {
+        frames++;
+        if (frames <= warmup) {
+          last = now;
+          requestAnimationFrame(sample);
+          return;
+        }
+        if (!start) {
+          start = now;
+          last = now;
+          requestAnimationFrame(sample);
+          return;
+        }
+
+        intervals.push(now - last);
+        last = now;
+        measured++;
+
+        if (measured < target) {
+          requestAnimationFrame(sample);
+          return;
+        }
+
+        const duration = now - start;
+        const sorted = [...intervals].sort((a,b) => a-b);
+        const at = p => sorted[Math.min(sorted.length-1, Math.floor(sorted.length*p))];
+
+        resolve({
+          engine: 'FPS262626 original vibe-coded game',
+          n: 5,
+          frames: measured,
+          ms: +(duration / measured).toFixed(2),
+          fps: +(1000 * measured / duration).toFixed(1),
+          p50: +at(.50).toFixed(2),
+          p95: +at(.95).toFixed(2),
+          over20ms: +(100 * intervals.filter(v => v > 20).length / intervals.length).toFixed(1),
+        });
+      };
+      requestAnimationFrame(sample);
+    });
+  });
+
+  results.push({ suite: 'fps262626-original', id: 'original-vibe-coded', ...result, errors });
+  console.log(JSON.stringify(results.at(-1)));
+  await page.close();
 }
 
 await browser.close();
@@ -244,6 +242,8 @@ const md = [
   '',
   tableFor('movement'),
   tableFor('collision'),
+  tableFor('fps262626-style'),
+  tableFor('fps262626-original'),
   '## Browser entry size',
   '',
   'These are shipped browser entry files, not tree-shaken application bundles.',
@@ -259,6 +259,8 @@ const md = [
   '- LittleJS collision uses EngineObject setCollision and its built-in broadphase/physics.',
   '- Phaser collision uses Arcade Physics dynamic/static groups.',
   '- LittleJS normally targets a fixed 60 Hz update architecture, so uncapped FPS is not directly comparable below its saturation point.',
+  '- The FPS262626 original case is the untouched student game snapshot; Playwright measures its requestAnimationFrame cadence externally.',
+  '- The FPS262626-style ports keep the same 1280x720 target/particle/tracer/text/background workload and use each framework\'s normal drawing loop.',
   '',
 ].join('\n');
 

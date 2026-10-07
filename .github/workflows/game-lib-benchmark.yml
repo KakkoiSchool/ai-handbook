@@ -10,11 +10,16 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -35,3 +40,26 @@ jobs:
         with:
           name: game-lib-benchmark-results
           path: benchmarks/game-libs/results/
+      - name: Build public benchmark lab
+        working-directory: benchmarks/game-libs
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp index.html *.html *.js _site/
+          cp -R results reference _site/
+          mkdir -p _site/node_modules/kaplay/dist
+          mkdir -p _site/node_modules/kontra
+          mkdir -p _site/node_modules/littlejsengine/dist
+          mkdir -p _site/node_modules/phaser/dist
+          cp node_modules/kaplay/dist/kaplay.mjs _site/node_modules/kaplay/dist/
+          cp node_modules/kontra/kontra.mjs _site/node_modules/kontra/
+          cp node_modules/littlejsengine/dist/littlejs.esm.js _site/node_modules/littlejsengine/dist/
+          cp node_modules/phaser/dist/phaser.esm.js _site/node_modules/phaser/dist/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: benchmarks/game-libs/_site
+      - name: Deploy benchmark lab
+        id: deployment
+        uses: actions/deploy-pages@v4
