@@ -1,133 +1,75 @@
-# Instructions for AI agents
+# Kakkoi School AI Router
 
-You are helping a Kakkoi School student operate Git and GitHub safely.
+You are helping a Kakkoi School student.
 
-These rules are global. A task-specific recipe may add constraints, but must not weaken these rules.
+This file is a **router**. Do not make the student choose documentation. Determine what they are trying to do, open the matching instructions below, and follow them.
 
-## 0. Detect first-time setup
+Keep routing flat: **one decision, one jump to the actual instructions**. Do not send the student through an index of indexes.
 
-If the student is starting from a blank/new computer, cannot run `git`, `gh`, or `code`, or asks how to install GitHub/VS Code/Copilot/Live Server, start with [`setup/README.md`](setup/README.md) before task-specific recipes.
+If a task spans several areas, use only the routes that are actually needed, in the order the work requires.
 
-Do not assume tools are installed because a later recipe uses them.
+## Route the task
 
-## 1. Do not improvise when a recipe exists
+| Student wants to… | Go directly to… |
+|---|---|
+| Set up a new/blank computer or start from scratch | [setup/README.md](setup/README.md) |
+| Create a GitHub account | [setup/github-account.md](setup/github-account.md) |
+| Install/configure Git | [setup/git.md](setup/git.md) |
+| Install VS Code | [setup/vscode.md](setup/vscode.md) |
+| Connect VS Code to GitHub | [setup/vscode-github.md](setup/vscode-github.md) |
+| Set up Copilot | [setup/copilot.md](setup/copilot.md) |
+| Apply for GitHub Education | [setup/github-education.md](setup/github-education.md) |
+| Install/use Live Server | [setup/live-server.md](setup/live-server.md) |
+| Understand localhost/local servers | [setup/local-server.md](setup/local-server.md) |
+| Create a first local project | [recipes/create-local-project.md](recipes/create-local-project.md) |
+| Install/use GitHub CLI | [recipes/github-cli.md](recipes/github-cli.md) |
+| Create a GitHub repository | [recipes/create-repository.md](recipes/create-repository.md) |
+| Create a repository in KakkoiSchool | [recipes/kakkoischool-repository.md](recipes/kakkoischool-repository.md) |
+| Clone a repository | [recipes/clone-repository.md](recipes/clone-repository.md) |
+| Connect an existing folder to GitHub | [recipes/connect-local-repository.md](recipes/connect-local-repository.md) |
+| Commit and push changes | [recipes/commit-and-push.md](recipes/commit-and-push.md) |
+| Work with branches | [recipes/branches.md](recipes/branches.md) |
+| Open a pull request | [recipes/pull-request.md](recipes/pull-request.md) |
+| Merge a pull request | [recipes/merge-pull-request.md](recipes/merge-pull-request.md) |
+| Create/close issues | [recipes/issues.md](recipes/issues.md) |
+| Create a release | [recipes/releases.md](recipes/releases.md) |
+| Add/remove collaborators | [recipes/collaborators.md](recipes/collaborators.md) |
+| Publish a site with GitHub Pages | [recipes/github-pages.md](recipes/github-pages.md) |
+| Rename a repository | [recipes/rename-repository.md](recipes/rename-repository.md) |
+| Archive/unarchive a repository | [recipes/archive-repository.md](recipes/archive-repository.md) |
+| Delete a repository | [recipes/delete-repository.md](recipes/delete-repository.md) |
+| Change repository visibility | [recipes/change-visibility.md](recipes/change-visibility.md) |
+| Fork a repository | [recipes/fork-repository.md](recipes/fork-repository.md) |
+| Transfer a repository | [recipes/transfer-repository.md](recipes/transfer-repository.md) |
+| Make or substantially modify a browser game | **Read and follow the official [LittleJS-AI](https://github.com/KilledByAPixel/LittleJS-AI) repository directly** |
+| Add browser multiplayer/networking | **Read and follow [KakkoiDev/p2p-core](https://github.com/KakkoiDev/p2p-core) directly** |
+| Use a browser because GitHub API/CLI is unavailable | [recipes/browser-fallback.md](recipes/browser-fallback.md) |
 
-Read the matching file under `recipes/` and follow it exactly. If a command, library, owner, branch, or deployment method is specified, do not silently replace it with something you prefer.
+## Existing projects
 
-This handbook is written so that smaller models can succeed by following procedures instead of reconstructing GitHub from memory.
+Before changing an existing project, read that project's own README.md, AGENTS.md, CLAUDE.md, or equivalent instructions.
 
-## 2. Use this capability ladder
+Preserve its existing stack unless the student explicitly asks to migrate.
 
-Use the first available option:
+For a new Kakkoi School browser game, route to **LittleJS-AI**. Do not invent a Kakkoi-specific game framework.
 
-1. Native connected GitHub tool/API.
-2. GitHub CLI (`gh`).
-3. Local `git`.
-4. Browser UI / Playwright fallback.
+For a LittleJS game that also needs multiplayer, use both authoritative sources:
+1. LittleJS-AI for the game;
+2. p2p-core for networking.
 
-If a higher-level option is unavailable, move down one level. Do not jump directly to browser automation when `gh` can do the job.
+## Universal rules
 
-## 3. Never claim success without verification
+These apply regardless of route:
 
-After every mutation, check it.
+- Never ask the student to paste passwords, 2FA codes, private keys, session cookies, recovery codes, or GitHub tokens into chat.
+- Destructive/high-impact actions require explicit student intent: delete, transfer, visibility change, force-push, unmerged branch deletion, collaborator removal, Pages removal.
+- KakkoiSchool ownership and a student's personal account are different targets. Never silently substitute one for the other.
+- Verify the final result before claiming success.
+- Prefer the documented solution over inventing a parallel framework, service, or workflow.
+- If the matched instructions point to an upstream authoritative project, follow that project instead of copying its documentation back into this repository.
 
-Examples:
-- repository creation: `gh repo view OWNER/REPO`
-- push: `git status` and `git log -1`, then inspect remote when useful
-- PR: `gh pr view`
-- merge: `gh pr view --json state,mergedAt`
-- Pages: `gh api repos/OWNER/REPO/pages --jq '{status:.status,url:.html_url}'` and open the URL
-- rename: `gh repo view OWNER/NEW-NAME`
+## If nothing matches
 
-A successful command is evidence, not always proof that the final user-visible result exists.
+Do not guess a new Kakkoi standard.
 
-## 4. Destructive actions require explicit intent
-
-The following are destructive or high-impact:
-- deleting a repository
-- changing visibility
-- transferring ownership
-- force-pushing
-- deleting branches with unmerged work
-- removing collaborators
-- removing GitHub Pages
-
-Do not perform them because they seem convenient. The student must have explicitly asked for that exact action and the exact repository must be known.
-
-Prefer an interactive confirmation for deletion. Do not add `--yes` automatically.
-
-## 5. Secrets and authentication
-
-Never ask the student to paste a password, 2FA code, private key, session cookie, or GitHub token into chat.
-
-Preferred authentication:
-
-```sh
-gh auth login --web
-gh auth setup-git
-gh auth status
-```
-
-Let GitHub's browser login flow handle credentials.
-
-Do not run `gh auth token` just to show that authentication works; that command prints the token.
-
-Playwright helpers must never fill passwords or 2FA codes. Let the student log in manually in the headed browser.
-
-## 6. KakkoiSchool ownership is not the student's personal account
-
-`KakkoiSchool/project` and `student-name/project` are different targets.
-
-If the student asks for a KakkoiSchool repository:
-- use `KakkoiSchool/NAME` explicitly;
-- verify they have permission;
-- if GitHub refuses the operation, do not silently create it under their personal account;
-- explain that organization permission is missing and stop or use the documented request path.
-
-## 7. Preserve existing projects
-
-Before changing an existing repository:
-- inspect `README.md`, `AGENTS.md`, `CLAUDE.md`, or similar project instructions if present;
-- inspect current branches and status;
-- do not introduce a framework, package manager, build step, server, or dependency unless the task requires it;
-- prefer the repository's current style.
-
-## 8. Use exact repository names
-
-For remote operations, prefer `OWNER/REPO`, not a bare repo name.
-
-Before destructive operations, say the target back to yourself internally and verify it with:
-
-```sh
-gh repo view OWNER/REPO --json nameWithOwner,url,visibility
-```
-
-## 9. Prefer reversible steps
-
-For code changes:
-- create a branch when the repository expects PRs;
-- commit before large rewrites;
-- avoid force push unless explicitly required;
-- archive before delete when the student's real goal is merely "hide/retire this".
-
-## 10. Browser automation is a fallback, not a bypass
-
-The helpers in `browser/` exist for UI-only tasks, visual verification, screenshots, and environments where the AI cannot directly use GitHub.
-
-Do not use browser automation to bypass permissions, organization rules, review requirements, 2FA, or confirmation dialogs.
-
-## 11. Browser games use LittleJS
-
-For a new Kakkoi School browser game, use **LittleJS**.
-
-Do not duplicate LittleJS instructions in this handbook. Before creating or substantially modifying a LittleJS game, read and follow the official AI toolkit:
-
-https://github.com/KilledByAPixel/LittleJS-AI
-
-Treat its `AGENTS.md`, skills, templates, helpers, and bundled API reference as the source of truth for LittleJS game creation.
-
-Use LittleJS built-ins, official plugins, and LittleJS-AI helpers before inventing replacements.
-
-If the student explicitly chose another framework, or an existing project already uses another framework, preserve that choice unless the student asks to migrate.
-
-For multiplayer, keep LittleJS as the game engine and additionally follow `recipes/multiplayer.md` for `p2p-core`.
+First inspect the current project's own documentation. If no existing route or project instruction covers the task, explain what is missing and use the simplest reversible approach.
