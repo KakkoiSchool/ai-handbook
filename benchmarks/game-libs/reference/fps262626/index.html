@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="cyber">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEON GAME HUB - Cyber Web Game Platform</title>
+  <meta name="description" content="ネオンパープルと黒の世界観で楽しむマルチWebゲームポータル。内蔵FPS射撃ゲームや外部Webゲームを大画面でプレイ！">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 背景アニメーション装飾 -->
+  <div class="cyber-grid-bg"></div>
+  <div class="cyber-vignette"></div>
+
+  <!-- ヘッダー -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">NEON <span class="text-accent">GAME</span> HUB</span>
+        <span class="system-status"><span class="status-dot"></span>MULTI-GAME PORTAL</span>
+      </div>
+      <nav class="nav">
+        <a href="#apps" class="nav-link active">アプリ一覧</a>
+        <a href="#arena" class="nav-link">ゲーム画面</a>
+        <a href="#controls" class="nav-link">操作方法</a>
+        <a href="#customize" class="nav-link">ゲーム導入</a>
+        <a href="#records" class="nav-link">戦績</a>
+      </nav>
+      <div class="header-actions">
+        <button id="sound-toggle" class="btn-icon" title="サウンド切り替え" aria-label="サウンド切り替え">🔊</button>
+        <button id="fullscreen-toggle" class="btn-icon" title="全画面表示 (F)" aria-label="全画面表示">⛶</button>
+        <button id="theme-toggle" class="btn-icon" title="カラーテーマ切替" aria-label="テーマ切り替え">🎨</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <!-- ゲームアリーナ（メインセクション） -->
+    <section id="arena" class="arena-section">
+      <div class="container">
+        <!-- セクションヘッダー -->
+        <div class="arena-header">
+          <div class="tactical-badge">NEON PURPLE & BLACK GAMING PORTAL</div>
+          <h1 class="glitch-title" data-text="NEON GAME HUB">NEON GAME HUB</h1>
+          <p class="arena-subtitle">いろんなWebゲームが集結するマルチプラットフォーム。アプリを選択して大画面で楽しもう！</p>
+        </div>
+
+        <!-- ゲームアプリ選択ハブ (GAME APPS DOCK) -->
+        <div class="game-apps-section" id="apps">
+          <div class="apps-header">
+            <div class="apps-title-wrap">
+              <span class="apps-badge">APPS LIBRARY</span>
+              <h2 class="apps-title">GAME APPS <span class="apps-count">4 SLOTS</span></h2>
+            </div>
+            <p class="apps-sub">プレイしたいゲームアプリを選択してください。現在「🎯 射撃ゲーム」が起動中です。</p>
+          </div>
+
+          <div class="apps-grid" id="apps-grid">
+            <!-- アプリ 1: 射撃ゲーム (CYBER TARGET FPS) -->
+            <div class="app-card active" data-app-id="fps" id="app-card-fps">
+              <div class="app-card-glow"></div>
+              <div class="app-icon-wrap">
+                <span class="app-icon">🎯</span>
+                <span class="app-status-pill running">実行中</span>
+              </div>
+              <div class="app-meta">
+                <div class="app-category">3D AIM SHOOTING</div>
+                <h3 class="app-name">射撃ゲーム (FPS)</h3>
+                <p class="app-desc">ターゲットを撃ち抜くハイスピードエイム射撃ゲーム（内蔵アプリ）</p>
+              </div>
+              <button class="app-launch-btn" id="btn-select-fps">
+                <span>▶ 射撃ゲームをプレイ</span>
+              </button>
+            </div>
+
+            <!-- アプリ 2: 外部Webゲーム読み込み (CUSTOM GAME LOADER) -->
+            <div class="app-card" data-app-id="custom" id="app-card-custom">
+              <div class="app-card-glow"></div>
+              <div class="app-icon-wrap">
+                <span class="app-icon">🎮</span>
+                <span class="app-status-pill ready">URL LOAD</span>
+              </div>
+              <div class="app-meta">
+                <div class="app-category">WEBGL / IFRAME</div>
+                <h3 class="app-name">カスタムゲーム読込</h3>
+                <p class="app-desc">任意のWebゲームURLを入力してこの大画面枠で即座にプレイ</p>
+              </div>
+              <button class="app-launch-btn" id="btn-select-custom">
+                <span>⚡ URL読込で起動</span>
+              </button>
+            </div>
+
+            <!-- アプリ 3: レトロRPGアドベンチャー -->
+            <div class="app-card" data-app-id="rpg" id="app-card-rpg">
+              <div class="app-card-glow"></div>
+              <div class="app-icon-wrap">
+                <span class="app-icon">⚔️</span>
+                <span class="app-status-pill ready">OPEN WORLD</span>
+              </div>
+              <div class="app-meta">
+                <div class="app-category">RETRO RPG</div>
+                <h3 class="app-name">レトロ・クエスト</h3>
+                <p class="app-desc">勇者と8つの試練に挑むドット絵オープンワールドRPG</p>
+              </div>
+              <button class="app-launch-btn" id="btn-select-rpg">
+                <span>⚔️ RPGを起動</span>
+              </button>
+            </div>
+
+            <!-- アプリ 4: 新規ゲーム追加スロット -->
+            <div class="app-card" id="app-card-add">
+              <div class="app-card-glow"></div>
+              <div class="app-icon-wrap">
+                <span class="app-icon">➕</span>
+                <span class="app-status-pill new">ADD GAME</span>
+              </div>
+              <div class="app-meta">
+                <div class="app-category">NEW APP SLOT</div>
+                <h3 class="app-name">ゲームを追加</h3>
+                <p class="app-desc">独自のHTML5 / Unity WebGLゲームを簡単に追加組み込み</p>
+              </div>
+              <a href="#customize" class="app-launch-btn">
+                <span>⚙️ 導入ガイドを見る</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ゲーム画面コンテナ -->
+        <div class="game-viewport-card" id="game-viewport-card">
+          <!-- サイバー風フレーム飾り角 -->
+          <div class="frame-corner top-left"></div>
+          <div class="frame-corner top-right"></div>
+          <div class="frame-corner bottom-left"></div>
+          <div class="frame-corner bottom-right"></div>
+
+          <!-- ゲーム画面上部コントロールバー（拡大ボタン配置エリア） -->
+          <div class="game-top-bar" id="game-top-bar">
+            <div class="top-bar-info">
+              <span class="top-bar-indicator"><span class="top-bar-dot"></span>ACTIVE</span>
+              <span class="top-bar-title" id="active-app-title">🎯 射撃ゲーム (CYBER TARGET FPS)</span>
+            </div>
+            <div class="top-bar-actions">
+              <button id="btn-back-to-fps" class="quick-btn hidden" style="margin-right: 8px;"><span>🎯</span> 射撃ゲームに戻る</button>
+              <button id="screen-expand-btn" class="btn-expand" title="画面を拡大 / 全画面表示" aria-label="画面拡大">
+                <span class="expand-icon">⛶</span>
+                <span class="expand-text">画面拡大</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ゲームコンテナ本体 -->
+          <div class="game-container" id="game-container">
+            <!-- 外部ゲーム・URL読込ビュー (iframe) -->
+            <div class="custom-loader-view" id="custom-loader-view">
+              <div class="loader-bar">
+                <input type="url" id="custom-game-url" class="loader-input" placeholder="ゲームURLを入力 (例: https://...)">
+                <button id="btn-load-custom-url" class="loader-submit-btn">起動 (RUN)</button>
+                <button id="btn-loader-close" class="loader-return-btn">✕ 射撃ゲームに戻る</button>
+              </div>
+              <div class="custom-iframe-wrap">
+                <iframe id="custom-game-frame" class="custom-iframe" src="" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <!-- ゲームCanvas (射撃ゲーム本体) -->
+            <canvas id="game-canvas" width="1280" height="720"></canvas>
+
+            <!-- ゲーム内常時HUD -->
+            <div class="game-hud" id="game-hud">
+              <div class="hud-top">
+                <div class="hud-item score-box">
+                  <span class="hud-label">SCORE</span>
+                  <span class="hud-value" id="hud-score">00000</span>
+                </div>
+                <div class="hud-item timer-box">
+                  <span class="hud-label">TIME REMAINING</span>
+                  <div class="timer-meter-wrap">
+                    <span class="hud-value highlight" id="hud-timer">60</span><span class="hud-unit">s</span>
+                    <div class="timer-bar"><div class="timer-bar-fill" id="timer-bar-fill"></div></div>
+                  </div>
+                </div>
+                <div class="hud-item combo-box">
+                  <span class="hud-label">COMBO</span>
+                  <span class="hud-value combo-val" id="hud-combo">x0</span>
+                </div>
+                <div class="hud-item acc-box">
+                  <span class="hud-label">ACCURACY</span>
+                  <span class="hud-value" id="hud-acc">100%</span>
+                </div>
+              </div>
+
+              <div class="hud-bottom">
+                <div class="hud-item shield-box">
+                  <span class="hud-label">SHIELD INTEGRITY</span>
+                  <div class="shield-meter">
+                    <div class="shield-bar-fill" id="shield-bar-fill"></div>
+                  </div>
+                  <span class="hud-small-val">100%</span>
+                </div>
+
+                <div class="hud-center-alert" id="hud-center-alert"></div>
+
+                <div class="hud-item ammo-box" id="ammo-hud-box">
+                  <span class="hud-label">MAGAZINE [R: RELOAD]</span>
+                  <div class="ammo-display">
+                    <span class="hud-value ammo-val" id="hud-ammo">30</span>
+                    <span class="ammo-max">/ 30</span>
+                  </div>
+                  <div class="ammo-pips" id="ammo-pips"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- スタート前オーバーレイ -->
+            <div class="game-overlay active" id="start-overlay">
+              <div class="overlay-box">
+                <div class="overlay-icon">🎯</div>
+                <h2>MISSION BRIEFING</h2>
+                <p class="mission-desc">
+                  出現するターゲットドローンをマウスで照準を合わせ、素早く撃破せよ！<br>
+                  中心（ブルズアイ）への命中や連続キルで高得点コンボが発動！
+                </p>
+                <div class="difficulty-select">
+                  <label class="diff-btn active">
+                    <input type="radio" name="difficulty" value="normal" checked>
+                    <span class="diff-tag">NORMAL</span>
+                    <span class="diff-info">制限時間 60秒 / 標準スピード</span>
+                  </label>
+                  <label class="diff-btn">
+                    <input type="radio" name="difficulty" value="hard">
+                    <span class="diff-tag hard">HARD</span>
+                    <span class="diff-info">制限時間 45秒 / 高速＆小ターゲット</span>
+                  </label>
+                </div>
+                <button id="btn-start-game" class="btn btn-cyber-primary pulse">
+                  <span class="btn-glitch">MISSION START</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ポーズ画面オーバーレイ -->
+            <div class="game-overlay" id="pause-overlay">
+              <div class="overlay-box">
+                <h2>TACTICAL PAUSE</h2>
+                <p>作戦を一時停止中</p>
+                <div class="overlay-actions">
+                  <button id="btn-resume-game" class="btn btn-cyber-primary">再開 (RESUME)</button>
+                  <button id="btn-restart-game" class="btn btn-cyber-secondary">リスタート</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ゲームオーバー / リザルト画面オーバーレイ -->
+            <div class="game-overlay" id="result-overlay">
+              <div class="overlay-box result-box">
+                <div class="result-badge" id="result-badge">MISSION COMPLETE</div>
+                <div class="rank-display">
+                  <div class="rank-letter" id="result-rank">S</div>
+                  <div class="rank-label">COMBAT RANK</div>
+                </div>
+                <div class="result-stats-grid">
+                  <div class="result-stat-item">
+                    <span class="stat-name">最終スコア</span>
+                    <span class="stat-num" id="res-score">0</span>
+                  </div>
+                  <div class="result-stat-item">
+                    <span class="stat-name">ターゲット撃破</span>
+                    <span class="stat-num" id="res-kills">0</span>
+                  </div>
+                  <div class="result-stat-item">
+                    <span class="stat-name">命中精度</span>
+                    <span class="stat-num" id="res-acc">0%</span>
+                  </div>
+                  <div class="result-stat-item">
+                    <span class="stat-name">最大コンボ</span>
+                    <span class="stat-num" id="res-combo">0</span>
+                  </div>
+                </div>
+                <div id="new-record-alert" class="new-record-alert hidden">🏆 NEW HIGH SCORE!</div>
+                <div class="overlay-actions">
+                  <button id="btn-retry-game" class="btn btn-cyber-primary pulse">もう一度プレイ</button>
+                  <button id="btn-share-score" class="btn btn-cyber-secondary">結果をコピー</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ゲーム下部クイックコントロールバー -->
+          <div class="game-toolbar">
+            <div class="toolbar-left">
+              <button id="quick-reload-btn" class="quick-btn"><span>⟳</span> リロード [R]</button>
+              <button id="quick-pause-btn" class="quick-btn"><span>⏸</span> 一時停止 [P]</button>
+            </div>
+            <div class="toolbar-right">
+              <span class="status-label">MODE: <span id="mode-text">AIM TRAINER</span></span>
+              <span class="fps-counter" id="fps-display">FPS: 60</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 操作方法セクション -->
+    <section id="controls" class="section controls-section">
+      <div class="container">
+        <h2 class="section-title"><span class="title-decor">//</span> OPERATIONAL CONTROLS <span class="title-sub">操作マニュアル</span></h2>
+        
+        <div class="controls-grid">
+          <div class="control-card">
+            <div class="key-visual"><div class="mouse-icon">🖱️</div></div>
+            <div class="control-info">
+              <h3>マウス移動 / タップ</h3>
+              <p>照準（クロスヘア）をターゲットに合わせます。直感的なエイミングが可能です。</p>
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div class="key-visual"><div class="key-badge">左クリック</div></div>
+            <div class="control-info">
+              <h3>射撃 (FIRE)</h3>
+              <p>標的を射撃します。中心に近いほど高得点（クリティカル）を獲得できます。</p>
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div class="key-visual"><div class="key-cap">R</div></div>
+            <div class="control-info">
+              <h3>リロード (RELOAD)</h3>
+              <p>マガジン（30発）を再装填します。弾切れ時または下部ゲージクリックでも実行可能です。</p>
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div class="key-visual"><div class="key-cap">P / ESC</div></div>
+            <div class="control-info">
+              <h3>一時停止 (PAUSE)</h3>
+              <p>ゲームを一時停止して作戦状況を確認できます。再度押すかクリックで再開します。</p>
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div class="key-visual"><div class="key-cap">F / ⛶</div></div>
+            <div class="control-info">
+              <h3>全画面・画面拡大</h3>
+              <p>ゲーム画面上部の「画面拡大」ボタンまたはキーボード[F]で画面全体に拡大。スマホでも大画面で迫力プレイが可能です。</p>
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div class="key-visual"><div class="key-badge">連射制限</div></div>
+            <div class="control-info">
+              <h3>戦術的トリガー</h3>
+              <p>無駄撃ちを避けて命中率を高く保つことで、最終リザルトの評価ランクが向上します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ゲーム導入・差し替えガイドセクション -->
+    <section id="customize" class="section customize-section">
+      <div class="container">
+        <div class="customize-box">
+          <div class="customize-header">
+            <span class="code-icon">⚙️</span>
+            <div>
+              <h2>ゲームの追加・差し替えについて</h2>
+              <p>このページは独自のゲーム（WebGL, Three.js, Canvas, iframe）をいつでも組み込める構成になっています</p>
+            </div>
+          </div>
+          <div class="customize-content">
+            <p>
+              現在内蔵されている「CYBER TARGET FPS」のほか、ご自身で開発したFPSや3Dゲーム、外部ゲームを配置する場合は、
+              <code>index.html</code> の <code>#game-container</code> 要素内に Canvas や <code>&lt;iframe&gt;</code> を配置するだけで、
+              本ページのゲーミングHUD・フルスクリーン機能・サイバーフレームデザインをそのまま活用できます！
+            </p>
+            <div class="code-snippet">
+              <code>&lt;!-- 独自ゲームの組み込み例 --&gt;
+&lt;div class="game-container" id="game-container"&gt;
+  &lt;!-- ここにThree.jsのCanvasや、Unity WebGL、ゲームフレームを配置 --&gt;
+  &lt;canvas id="my-custom-fps-game"&gt;&lt;/canvas&gt;
+&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section id="features" class="section features-section">
+      <div class="container">
+        <h2 class="section-title"><span class="title-decor">//</span> SYSTEM FEATURES <span class="title-sub">主な特徴</span></h2>
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-glow"></div>
+            <div class="card-icon">⚡</div>
+            <h3>軽量・超高速 60FPS</h3>
+            <p>外部巨大ライブラリを使わず、純粋なHTML5 Canvas & JavaScriptで動作。どんな端末でも即座に起動し滑らかに動きます。</p>
+          </div>
+          <div class="card">
+            <div class="card-glow"></div>
+            <div class="card-icon">🔊</div>
+            <h3>Web Audio 合成サウンド</h3>
+            <p>外部音声ファイルのダウンロード不要。ブラウザ内で銃声・着弾・リロード音をリアルタイムに周波数合成して再生します。</p>
+          </div>
+          <div class="card">
+            <div class="card-glow"></div>
+            <div class="card-icon">💥</div>
+            <h3>臨場感あふれる演出</h3>
+            <p>マズルフラッシュ、画面の射撃反動（リコイル）、ターゲットの爆発パーティクル、浮遊するダメージ数値など本格仕様。</p>
+          </div>
+          <div class="card">
+            <div class="card-glow"></div>
+            <div class="card-icon">📱</div>
+            <h3>全画面 & レスポンシブ</h3>
+            <p>スマホやタブレットのタッチ操作にも完全対応。全画面ボタン一つで迫力あるディスプレイに早変わりします。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 戦績 & スコアボードセクション -->
+    <section id="records" class="section records-section">
+      <div class="container">
+        <div class="records-wrapper">
+          <div class="records-header">
+            <div>
+              <h2 class="section-title-left"><span class="title-decor">//</span> COMBAT RECORDS <span class="title-sub">自己ベスト戦績</span></h2>
+              <p class="records-desc">ローカルに保存されたハイスコアおよび直近の戦闘履歴です。</p>
+            </div>
+            <button id="btn-clear-records" class="btn-clear-scores" title="スコアを初期化">記録リセット</button>
+          </div>
+
+          <div class="records-dashboard">
+            <div class="record-stat-card">
+              <span class="rec-label">BEST SCORE</span>
+              <span class="rec-val highlight" id="best-score-display">0</span>
+            </div>
+            <div class="record-stat-card">
+              <span class="rec-label">BEST ACCURACY</span>
+              <span class="rec-val" id="best-acc-display">0.0%</span>
+            </div>
+            <div class="record-stat-card">
+              <span class="rec-label">MAX COMBO</span>
+              <span class="rec-val" id="best-combo-display">x0</span>
+            </div>
+            <div class="record-stat-card">
+              <span class="rec-label">TOTAL MISSIONS</span>
+              <span class="rec-val" id="total-games-display">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-logo">NEON <span class="text-accent">GAME</span> HUB</div>
+      <p class="footer-copy">&copy; 2026 NEON GAME HUB. Created for gamers & creators.</p>
+      <div class="footer-links">
+        <a href="#arena">Top</a>
+        <a href="#controls">Controls</a>
+        <a href="https://github.com/fps262626/game-web-FPS" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FPS262626-style Kontra workload</title>
+<style>html,body{margin:0;overflow:hidden;background:#030007}canvas{display:block;width:100vw;height:auto;max-height:100vh}</style>
+<canvas id="game" width="1280" height="720"></canvas>
+<script type="module">
+import { init, GameLoop } from './node_modules/kontra/kontra.mjs';
+import { createMeter } from './common.js';
+import { makeFPSState, stepFPS } from './fps-style-common.js';
+import { drawFPSCanvas } from './fps-canvas-render.js';
+
+const { context }=init(document.querySelector('#game'));
+const state=makeFPSState();
+const tick=createMeter('FPS262626-style Kontra',5,{suite:'fps262626-style'});
+GameLoop({
+  update(dt){ stepFPS(state,Math.min(.05,dt)); },
+  render(){ drawFPSCanvas(context,state); tick(); },
+}).start();
+</script>

@@ -1,0 +1,67 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FPS262626-style KAPLAY workload</title>
+<style>html,body{margin:0;overflow:hidden;background:#030007}canvas{display:block;width:100vw;height:auto;max-height:100vh}</style>
+<canvas id="game" width="1280" height="720"></canvas>
+<script type="module">
+import kaplay from './node_modules/kaplay/dist/kaplay.mjs';
+import { createMeter } from './common.js';
+import { FW, FH, makeFPSState, stepFPS } from './fps-style-common.js';
+
+const k=kaplay({canvas:document.querySelector('#game'),width:FW,height:FH,global:false,pixelDensity:1,background:[3,0,7]});
+const s=makeFPSState();
+const tick=createMeter('FPS262626-style KAPLAY',5,{suite:'fps262626-style'});
+
+const rgb=(hex)=>{
+  const h=hex.replace('#','');
+  return k.rgb(parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16));
+};
+const line=(x1,y1,x2,y2,w,c,o=1)=>k.drawLine({p1:k.vec2(x1,y1),p2:k.vec2(x2,y2),width:w,color:rgb(c),opacity:o});
+
+k.onUpdate(()=>stepFPS(s,Math.min(.05,k.dt())));
+k.onDraw(()=>{
+  k.drawRect({pos:k.vec2(0,0),width:FW,height:FH,color:rgb('#07000d')});
+  const hy=FH*.65,vx=FW/2;
+  line(0,hy,FW,hy,1,'#bf00ff',.16);
+  for(let x=-FW;x<=FW*2;x+=120) line(vx,hy,x,FH,1,'#bf00ff',.16);
+  for(let y=hy;y<=FH;y+=(FH-y)*.28+14) line(0,y,FW,y,1,'#bf00ff',.16);
+  k.drawCircle({pos:k.vec2(FW/2,hy-40),radius:180,fill:false,outline:{color:rgb('#bf00ff'),width:1},opacity:.08});
+  k.drawCircle({pos:k.vec2(FW/2,hy-40),radius:260,fill:false,outline:{color:rgb('#bf00ff'),width:1},opacity:.08});
+
+  for(const t of s.targets){
+    const r=t.type.radius, c=t.type.color;
+    k.drawCircle({pos:k.vec2(t.x,t.y),radius:r,fill:false,outline:{color:rgb(c),width:3},opacity:t.alpha});
+    for(let i=0;i<4;i++){
+      const a=t.ringRotation+i*Math.PI/2;
+      const ca=Math.cos(a),sa=Math.sin(a);
+      const p=(x,y)=>[t.x+x*ca-y*sa,t.y+x*sa+y*ca];
+      const a1=p(r-4,-4),a2=p(r+6,0),a3=p(r-4,4);
+      line(a1[0],a1[1],a2[0],a2[1],2,c,t.alpha);
+      line(a2[0],a2[1],a3[0],a3[1],2,c,t.alpha);
+    }
+    k.drawCircle({pos:k.vec2(t.x,t.y),radius:r*.55,fill:false,outline:{color:rgb('#ffffff'),width:1.5},opacity:.4*t.alpha});
+    k.drawCircle({pos:k.vec2(t.x,t.y),radius:r*.28,color:rgb('#ffffff'),opacity:t.alpha});
+    const progress=t.lifeTime/t.maxLifeTime;
+    k.drawCircle({pos:k.vec2(t.x,t.y),radius:r+8,fill:false,start:-90,end:-90+360*progress,outline:{color:rgb(c),width:2},opacity:t.alpha});
+  }
+
+  for(const tr of s.tracers) line(tr.startX,tr.startY,tr.endX,tr.endY,3,'#00f0ff',tr.alpha);
+  for(const p of s.particles) k.drawRect({pos:k.vec2(p.x-p.size/2,p.y-p.size/2),width:p.size,height:p.size,color:rgb(p.color),opacity:p.alpha});
+  for(const t of s.floatingTexts) k.drawText({text:t.text,pos:k.vec2(t.x,t.y),size:t.big?24:16,align:'center',anchor:'center',font:'monospace',color:rgb(t.color),opacity:t.alpha});
+
+  if(s.muzzleFlash>0){
+    k.drawRect({pos:k.vec2(0,0),width:FW,height:FH,color:rgb('#bf00ff'),opacity:.18*s.muzzleFlash});
+    k.drawCircle({pos:k.vec2(740,FH-20),radius:140,color:rgb('#bf00ff'),opacity:.12*s.muzzleFlash});
+    k.drawCircle({pos:k.vec2(740,FH-20),radius:70,color:rgb('#ff007f'),opacity:.22*s.muzzleFlash});
+  }
+
+  const x=s.crosshair.x,y=s.crosshair.y,gap=8,len=18;
+  k.drawCircle({pos:k.vec2(x,y),radius:2.5,color:rgb('#00f0ff')});
+  line(x,y-gap,x,y-gap-len,1.8,'#00f0ff');
+  line(x,y+gap,x,y+gap+len,1.8,'#00f0ff');
+  line(x-gap,y,x-gap-len,y,1.8,'#00f0ff');
+  line(x+gap,y,x+gap+len,y,1.8,'#00f0ff');
+  k.drawCircle({pos:k.vec2(x,y),radius:gap+len+3,fill:false,outline:{color:rgb('#00f0ff'),width:1},opacity:.25});
+  tick();
+});
+</script>

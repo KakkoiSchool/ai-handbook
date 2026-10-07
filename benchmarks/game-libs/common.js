@@ -11,7 +11,6 @@ export function params() {
 }
 
 export function velocity(i) {
-  // deterministic values, avoiding random benchmark-to-benchmark differences
   return {
     x: ((i * 17) % 7 + 1) * (i % 2 ? 0.31 : -0.31),
     y: ((i * 29) % 5 + 1) * (i % 3 ? 0.27 : -0.27),
@@ -25,18 +24,67 @@ export function position(i) {
   };
 }
 
+function makeHud(engine, n) {
+  if (typeof document === 'undefined') return null;
+  let hud = document.getElementById('benchmark-live-hud');
+  if (!hud) {
+    hud = document.createElement('div');
+    hud.id = 'benchmark-live-hud';
+    Object.assign(hud.style, {
+      position: 'fixed',
+      top: '10px',
+      left: '10px',
+      zIndex: '999999',
+      minWidth: '210px',
+      padding: '10px 12px',
+      border: '1px solid rgba(0,240,255,.5)',
+      background: 'rgba(2,7,12,.88)',
+      color: '#e8ffff',
+      font: '12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace',
+      boxShadow: '0 0 24px rgba(0,240,255,.18)',
+      pointerEvents: 'none',
+      whiteSpace: 'pre',
+    });
+    document.body.appendChild(hud);
+  }
+  hud.dataset.engine = engine;
+  hud.dataset.objects = String(n);
+  return hud;
+}
+
 export function createMeter(engine, n, extra = {}) {
   let frames = 0;
   let measured = 0;
   let start = 0;
   let last = 0;
+  let liveStart = performance.now();
+  let liveFrames = 0;
   const intervals = [];
   const warmup = 60;
   const target = 240;
+  const hud = makeHud(engine, n);
+
+  if (hud) hud.textContent = engine + '\nobjects: ' + n + '\nlive FPS: warming up…';
 
   return function tick() {
     const now = performance.now();
     frames++;
+    liveFrames++;
+
+    const liveDuration = now - liveStart;
+    if (hud && liveDuration >= 350) {
+      const liveFps = 1000 * liveFrames / liveDuration;
+      const frameMs = liveDuration / liveFrames;
+      hud.textContent =
+        engine + '\nobjects: ' + n +
+        '\nlive FPS: ' + liveFps.toFixed(1) +
+        '\nframe: ' + frameMs.toFixed(2) + ' ms' +
+        (window.benchResult
+          ? '\nCI sample: ' + window.benchResult.fps + ' FPS / ' + window.benchResult.ms + ' ms'
+          : '');
+      liveStart = now;
+      liveFrames = 0;
+    }
 
     if (frames <= warmup) {
       last = now;
