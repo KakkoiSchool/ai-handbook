@@ -91,7 +91,7 @@ for (const suite of suites) {
     for (const n of suite.counts) {
       const page = await browser.newPage({ viewport: { width: 800, height: 600 } });
       const errors = [];
-      page.on('pageerror', e => errors.push(String(e.message || e)));
+      page.on('pageerror', e => errors.push(String(e.stack || e.message || e)));
       page.on('console', m => {
         if (m.type() === 'error') errors.push(m.text());
       });
@@ -122,7 +122,7 @@ for (const suite of suites) {
 {
   const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
   const errors = [];
-  page.on('pageerror', e => errors.push(String(e.message || e)));
+  page.on('pageerror', e => errors.push(String(e.stack || e.message || e)));
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
   await page.addInitScript(() => localStorage.setItem('fps_sound_muted', 'true'));
   await page.goto(base + '/reference/fps262626/index.html', { waitUntil: 'domcontentloaded' });
