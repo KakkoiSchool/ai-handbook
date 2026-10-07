@@ -46,3 +46,5 @@ node run.mjs
 ```
 
 Results are written to `results/latest.json` and summarized in `results/latest.md`.
+
+The GitHub Actions workflow runs this suite automatically when benchmark files change.
