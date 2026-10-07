@@ -11,6 +11,8 @@ p{color:#b9c0c3;line-height:1.7}.tag{color:#00f0ff;font:12px ui-monospace,monosp
 .card{border:1px solid #263038;background:#101519;padding:16px}.card h3{margin:0 0 8px}
 a{color:#8ff8ff}.run{display:inline-block;margin:4px 5px 4px 0;padding:7px 9px;border:1px solid #31515a;text-decoration:none;font:12px ui-monospace,monospace}
 .run:hover{background:#14333a}.reference{border-color:#b400ff;box-shadow:0 0 24px rgba(180,0,255,.08)}
+.winner{margin:28px 0 8px;padding:24px;border:1px solid #b400ff;background:linear-gradient(135deg,rgba(108,0,160,.34),rgba(30,7,45,.86));box-shadow:0 0 40px rgba(180,0,255,.18)}
+.winner .eyebrow{color:#efb3ff;font:12px ui-monospace,monospace;letter-spacing:.18em}.winner h2{margin:8px 0 10px;font-size:clamp(30px,5vw,52px);color:#fff}.winner strong{color:#fff}.winner ul{margin:14px 0 0;padding-left:20px;color:#dccfe2;line-height:1.65}.winner .metrics{margin-top:14px;font:13px/1.6 ui-monospace,monospace;color:#f4d9ff}
 table{width:100%;border-collapse:collapse;font:12px ui-monospace,monospace;overflow:auto;display:block}
 th,td{padding:7px 9px;border-bottom:1px solid #253038;text-align:left;white-space:nowrap}
 small{color:#7f8c91}.notice{padding:14px;border-left:3px solid #00f0ff;background:#0c171b}
@@ -20,6 +22,19 @@ code{font-family:ui-monospace,monospace}
   <div class="tag">KAKKOI SCHOOL / BROWSER BENCHMARK LAB</div>
   <h1>JS Game Framework Lab</h1>
   <p>These are the same browser workloads used by CI. Open any test on this device to see its live FPS and frame time. CI disables frame limiting; normal phones and displays commonly cap visible rendering near 60/90/120 Hz.</p>
+
+  <div class="winner">
+    <div class="eyebrow">CURRENT KAKKOI SCHOOL WINNER</div>
+    <h2>🥇 Kontra.js</h2>
+    <p><strong>Best overall choice for our student browser games right now.</strong> It is closest to raw Canvas performance, has by far the strongest collision scaling in our tests, keeps the API small enough for weaker AIs, and avoids a heavy engine/runtime.</p>
+    <ul>
+      <li>Movement: hundreds to thousands of objects with a large frame-time margin.</li>
+      <li>Collision: Quadtree + simple AABB checks stayed dramatically faster than KAPLAY and remained ahead of Phaser in CI.</li>
+      <li>FPS262626-style loop: essentially raw-Canvas speed in the first real-game workload.</li>
+      <li>Small mental model: the student still sees the game loop instead of hiding it behind a large engine.</li>
+    </ul>
+    <div class="metrics" id="winner-metrics">Loading latest Kontra CI numbers…</div>
+  </div>
 
   <div class="notice"><strong>FPS262626 reference:</strong> the student's original vibe-coded NEON GAME HUB is preserved as an untouched snapshot and measured by CI as a baseline.</div>
 
@@ -84,5 +99,17 @@ try{
  const data=await fetch('./results/latest.json',{cache:'no-store'}).then(r=>r.json());
  const rows=data.results.map(r=>'<tr><td>'+r.suite+'</td><td>'+r.id+'</td><td>'+r.n+'</td><td>'+(r.fps??'ERROR')+'</td><td>'+(r.ms??'')+'</td><td>'+(r.p95??'')+'</td></tr>').join('');
  document.querySelector('#results').innerHTML='<p>Generated '+data.generatedAt+'</p><table><thead><tr><th>suite</th><th>case</th><th>objects</th><th>FPS</th><th>avg ms</th><th>p95 ms</th></tr></thead><tbody>'+rows+'</tbody></table>';
+
+ const find=(suite,id,n)=>data.results.find(r=>r.suite===suite&&r.id===id&&r.n===n);
+ const move=find('movement','kontra',1000);
+ const collision1000=find('collision','kontra',1000);
+ const fps=find('fps262626-style','kontra',5);
+ const raw=find('fps262626-style','raw-canvas',5);
+ const fmt=r=>r&&r.fps ? r.fps+' FPS / '+r.ms+' ms' : 'pending';
+ document.querySelector('#winner-metrics').innerHTML=
+   'Latest CI → 1000 movers: <strong>'+fmt(move)+'</strong>' +
+   ' · 1000 collision movers: <strong>'+fmt(collision1000)+'</strong>' +
+   ' · FPS262626-style: <strong>'+fmt(fps)+'</strong>' +
+   (raw ? ' · raw Canvas baseline: <strong>'+fmt(raw)+'</strong>' : '');
 }catch(e){document.querySelector('#results').textContent='CI results unavailable: '+e.message}
 </script>

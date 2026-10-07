@@ -2,6 +2,23 @@
 
 A reproducible benchmark for libraries considered as Kakkoi School's default 2D browser-game layer.
 
+## Current recommendation: Kontra.js 🥇
+
+**Kontra.js is the current Kakkoi School winner.**
+
+Why:
+
+- closest to raw Canvas performance in the FPS262626-style workload;
+- strongest movement and collision scaling in the current CI matrix;
+- very small mental model for beginners and weaker coding agents;
+- explicit game loop stays visible and teachable;
+- much smaller runtime than Phaser;
+- does not currently show the collision-performance problems we measured with KAPLAY.
+
+This is a **current engineering choice, not a permanent declaration**. The public Pages lab runs the same tests on real devices, and the recommendation should change if future versions or more realistic workloads overturn it.
+
+The public page shows this recommendation in a purple winner panel together with the latest CI numbers.
+
 Public test lab after the Pages workflow deploys:
 
 https://kakkoischool.github.io/ai-handbook/
