@@ -7,6 +7,7 @@ Versions pinned for this run:
 - KAPLAY `4000.0.0-alpha.27.1`
 - Kontra `10.0.2`
 - LittleJS `1.25.0`
+- Phaser `4.2.1`
 
 ## Scene
 
