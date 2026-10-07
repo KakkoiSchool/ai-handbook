@@ -65,5 +65,5 @@ function gameRender(){
   line(x+gap,y,x+gap+len,y,1.8,'#00f0ff');
   L.drawCircle(wp(x,y),(gap+len+3)*2,color('#00f0ff',0),1,color('#00f0ff',.25));
 }
-L.engineInit(gameInit,gameUpdate,gameRender,()=>{},tick,[]);
+L.engineInit(gameInit,gameUpdate,()=>{},gameRender,tick,[]);
 </script>
