@@ -17,6 +17,9 @@ const k = kaplay({
   global: false,
   pixelDensity: 1,
   background: [20, 24, 32],
+  broadPhaseCollisionAlgorithm: q.get('broad') || undefined,
+  narrowPhaseCollisionAlgorithm: q.get('narrow') || undefined,
+  hashGridSize: Number(q.get('grid')) || undefined,
 });
 
 if (mode === 'collision') {

@@ -54,6 +54,17 @@ Implementations:
 
 This is deliberately not a hand-written collision engine shared by all four. The question is what students actually pay when they use each library's normal tools.
 
+### KAPLAY collision strategy round
+
+KAPLAY 4000 exposes several collision algorithms, so the benchmark also tests whether a beginner-friendly configuration can avoid the poor scaling of its default `sap + gjk` path for axis-aligned games:
+
+- default: `sap + gjk`
+- `sap + box`
+- `quadtree + box`
+- `grid + box` with a 32 px cell
+
+If one of these is consistently better, the school handbook can prescribe it instead of leaving weaker models to use the default blindly.
+
 ## Suite 3: browser entry size
 
 The runner records raw and gzip sizes of the browser entry files used for the test. This is not a tree-shaken production bundle, but it shows the default amount of engine code students ask the browser to load.
