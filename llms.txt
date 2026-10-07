@@ -3,6 +3,7 @@
 Purpose: deterministic instructions for AI assistants helping students with Git, GitHub, GitHub Pages, and Kakkoi School project workflows.
 
 Start here:
+- New student bootstrap: https://github.com/KakkoiSchool/ai-handbook/blob/main/START-HERE.md
 - First-day student setup: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/README.md
 - https://github.com/KakkoiSchool/ai-handbook/blob/main/AGENTS.md
 - https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/README.md
@@ -16,6 +17,9 @@ Beginner setup:
 - Copilot Free / Student: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/copilot.md
 - Live Server: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/live-server.md
 - Local server explanation: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/local-server.md
+- Setup health check: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/check-setup.sh
+- First project end-to-end: https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/first-project.md
+- Copy/paste setup prompt: https://github.com/KakkoiSchool/ai-handbook/blob/main/prompts/student-setup.md
 
 Core recipes:
 - Student setup: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/student-setup.md
