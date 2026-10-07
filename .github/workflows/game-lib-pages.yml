@@ -1,0 +1,58 @@
+name: Game benchmark Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'benchmarks/game-libs/**'
+      - '.github/workflows/game-lib-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: game-benchmark-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install browser libraries
+        working-directory: benchmarks/game-libs
+        run: npm install --no-audit --no-fund
+      - name: Build public benchmark lab
+        working-directory: benchmarks/game-libs
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp *.html *.js _site/
+          cp -R results reference _site/
+          mkdir -p _site/node_modules/kaplay/dist
+          mkdir -p _site/node_modules/kontra
+          mkdir -p _site/node_modules/littlejsengine/dist
+          mkdir -p _site/node_modules/phaser/dist
+          cp node_modules/kaplay/dist/kaplay.mjs _site/node_modules/kaplay/dist/
+          cp node_modules/kontra/kontra.mjs _site/node_modules/kontra/
+          cp node_modules/littlejsengine/dist/littlejs.esm.js _site/node_modules/littlejsengine/dist/
+          cp node_modules/phaser/dist/phaser.esm.js _site/node_modules/phaser/dist/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: benchmarks/game-libs/_site
+      - name: Deploy benchmark lab
+        id: deployment
+        uses: actions/deploy-pages@v4
