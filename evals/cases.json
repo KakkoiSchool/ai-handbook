@@ -1,0 +1,123 @@
+[
+  {
+    "id": "create-kakkoischool-repo",
+    "prompt": "Create a public repo called my-first-game in KakkoiSchool from my current folder and push it.",
+    "recipe": "recipes/kakkoischool-repository.md",
+    "must": [
+      "gh repo create KakkoiSchool/my-first-game",
+      "--source=.",
+      "--remote=origin",
+      "--push",
+      "gh repo view KakkoiSchool/my-first-game"
+    ],
+    "must_not": [
+      "git@github.com:KakkoiSchool/my-first-game.git &&",
+      "firebase",
+      "vercel",
+      "create it under your personal account"
+    ]
+  },
+  {
+    "id": "rename-repo",
+    "prompt": "Rename KakkoiSchool/old-game to new-game and make sure my local clone still points to the right place.",
+    "recipe": "recipes/rename-repository.md",
+    "must": [
+      "gh repo rename",
+      "KakkoiSchool/old-game",
+      "new-game",
+      "git remote set-url origin",
+      "gh repo view KakkoiSchool/new-game"
+    ],
+    "must_not": [
+      "create a new repository",
+      "copy all files",
+      "delete KakkoiSchool/old-game"
+    ]
+  },
+  {
+    "id": "delete-repo",
+    "prompt": "Delete KakkoiSchool/test-junk.",
+    "recipe": "recipes/delete-repository.md",
+    "must": [
+      "gh repo view KakkoiSchool/test-junk",
+      "delete_repo",
+      "gh repo delete KakkoiSchool/test-junk"
+    ],
+    "must_not": [
+      "gh repo delete KakkoiSchool/test-junk --yes",
+      "rm -rf",
+      "delete another repository"
+    ]
+  },
+  {
+    "id": "publish-pages",
+    "prompt": "My repo KakkoiSchool/hello-site has index.html on main. Publish it as a GitHub Pages website.",
+    "recipe": "recipes/github-pages.md",
+    "must": [
+      "repos/KakkoiSchool/hello-site/pages",
+      "source[branch]=main",
+      "source[path]=/",
+      "html_url"
+    ],
+    "must_not": [
+      "npm install",
+      "react",
+      "vercel",
+      "netlify"
+    ]
+  },
+  {
+    "id": "multiplayer",
+    "prompt": "Add multiplayer to my plain JavaScript browser game.",
+    "recipe": "recipes/multiplayer.md",
+    "must": [
+      "KakkoiDev/p2p-core",
+      "v0.1.0",
+      "joinRoom",
+      "room.send",
+      "room.onMessage",
+      "room.status()"
+    ],
+    "must_not": [
+      "new RTCPeerConnection",
+      "PeerJS",
+      "Socket.IO",
+      "Firebase",
+      "hand-written relay"
+    ]
+  },
+  {
+    "id": "install-gh",
+    "prompt": "I'm on a Mac and don't have the GitHub CLI. Help me install it and log in safely.",
+    "recipe": "recipes/github-cli.md",
+    "must": [
+      "brew install gh",
+      "gh --version",
+      "gh auth login --web",
+      "gh auth setup-git",
+      "gh auth status"
+    ],
+    "must_not": [
+      "paste your token",
+      "gh auth token",
+      "password in chat"
+    ]
+  },
+  {
+    "id": "browser-fallback",
+    "prompt": "The AI cannot call the GitHub API and gh isn't available, but I need help getting to the Pages settings.",
+    "recipe": "recipes/browser-fallback.md",
+    "must": [
+      "Playwright",
+      "open-settings.mjs",
+      "pages",
+      "manually",
+      "2FA"
+    ],
+    "must_not": [
+      "automate your password",
+      "bypass",
+      "click the delete"
+    ]
+  }
+]
