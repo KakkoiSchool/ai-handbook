@@ -141,9 +141,12 @@ const suites = [
   },
   {
     name: 'collision',
-    counts: [100, 500, 1000, 2500],
+    counts: [100, 250, 500, 1000],
     cases: [
-      { id: 'kaplay', page: 'kaplay.html', query: '&mode=collision' },
+      { id: 'kaplay-default', page: 'kaplay.html', query: '&mode=collision' },
+      { id: 'kaplay-box', page: 'kaplay.html', query: '&mode=collision&narrow=box' },
+      { id: 'kaplay-quadtree-box', page: 'kaplay.html', query: '&mode=collision&broad=quadtree&narrow=box' },
+      { id: 'kaplay-grid-box', page: 'kaplay.html', query: '&mode=collision&broad=grid&narrow=box&grid=32' },
       { id: 'kontra', page: 'kontra.html', query: '&mode=collision' },
       { id: 'littlejs', page: 'littlejs.html', query: '&mode=collision' },
       { id: 'phaser', page: 'phaser.html', query: '&mode=collision' },
