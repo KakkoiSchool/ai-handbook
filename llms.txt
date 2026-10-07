@@ -31,6 +31,7 @@ Core recipes:
 - Rename repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/rename-repository.md
 - Delete repository: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/delete-repository.md
 - Browser fallback: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/browser-fallback.md
+- Browser games (LittleJS): https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/games.md
 - Multiplayer: https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/multiplayer.md
 
 Rule: do not guess a workflow if one of these recipes covers the task. Verify the final state before saying the task succeeded.
