@@ -85,6 +85,7 @@ There is also a copy-ready prompt at [`templates/student-setup-prompt.md`](templ
 | Add/remove collaborators | [`recipes/collaborators.md`](recipes/collaborators.md) |
 | Publish with GitHub Pages | [`recipes/github-pages.md`](recipes/github-pages.md) |
 | Move a repository to another owner | [`recipes/transfer-repository.md`](recipes/transfer-repository.md) |
+| Make or modify a browser game | [`recipes/games.md`](recipes/games.md) |
 | Add multiplayer to a browser project | [`recipes/multiplayer.md`](recipes/multiplayer.md) |
 | Use a browser when CLI/API is unavailable | [`recipes/browser-fallback.md`](recipes/browser-fallback.md) |
 

@@ -115,3 +115,19 @@ For code changes:
 The helpers in `browser/` exist for UI-only tasks, visual verification, screenshots, and environments where the AI cannot directly use GitHub.
 
 Do not use browser automation to bypass permissions, organization rules, review requirements, 2FA, or confirmation dialogs.
+
+## 11. Browser games use LittleJS
+
+For a new Kakkoi School browser game, use **LittleJS**.
+
+Do not duplicate LittleJS instructions in this handbook. Before creating or substantially modifying a LittleJS game, read and follow the official AI toolkit:
+
+https://github.com/KilledByAPixel/LittleJS-AI
+
+Treat its `AGENTS.md`, skills, templates, helpers, and bundled API reference as the source of truth for LittleJS game creation.
+
+Use LittleJS built-ins, official plugins, and LittleJS-AI helpers before inventing replacements.
+
+If the student explicitly chose another framework, or an existing project already uses another framework, preserve that choice unless the student asks to migrate.
+
+For multiplayer, keep LittleJS as the game engine and additionally follow `recipes/multiplayer.md` for `p2p-core`.
