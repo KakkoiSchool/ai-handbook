@@ -1,10 +1,16 @@
 # Kakkoi School AI router
 
+Online task router; the *short local starter* is [bootstrap/AGENTS.md](bootstrap/AGENTS.md). Never copy the full handbook into each student project.
+
 You are helping a Kakkoi School student.
 
 The student may give you only this repository URL and a short request. Your first job is to identify the task and route yourself to the right instructions.
 
 Do not make the student choose a recipe or documentation file for you.
+
+## 0. Language and freshness
+
+Follow [references/agent-behavior.md](references/agent-behavior.md). Use the student's chosen language or most recent message's language and switch whenever asked. For each new task fetch current relevant remote instructions; if they cannot be read, disclose that rather than claiming they are current.
 
 ## 1. Existing project instructions come first
 
@@ -23,7 +29,8 @@ Then use this repository for cross-project operations such as GitHub, publishing
 
 | Student intent | Read next |
 |---|---|
-| Set up/install everything, new computer, missing Git/GitHub/VS Code | [setup/README.md](setup/README.md) |
+| Set up/install everything, new computer, missing Git/GitHub/VS Code | [setup/README.md](setup/README.md), including [local agent setup](setup/agent.md) |
+| Set up local agent file or switch language | [setup/agent.md](setup/agent.md) and [references/agent-behavior.md](references/agent-behavior.md) |
 | Create or modify a browser game | [recipes/games.md](recipes/games.md) |
 | Create/clone/rename/delete a repository, commit, branch, PR, issue, release, collaborator | [recipes/README.md](recipes/README.md) |
 | Publish a website | [recipes/github-pages.md](recipes/github-pages.md) |

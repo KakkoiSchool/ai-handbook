@@ -51,3 +51,7 @@ After the basic suite passes, remove the explicit “read the handbook first” 
 > Use https://github.com/KakkoiSchool/ai-handbook to help me with this.
 
 That tests whether the README routing is clear enough by itself.
+
+## Manual bootstrap smoke test
+
+Put only [../bootstrap/AGENTS.md](../bootstrap/AGENTS.md) in a fresh project. Confirm the actual agent recognizes it; ask for a website, a game, and publication and verify distinct remote routes. Switch with `日本語でお願いします` and `Please answer in English`. Then disable network access: the agent must acknowledge it cannot read the current online handbook. Static validation does not prove a model fetched pages.

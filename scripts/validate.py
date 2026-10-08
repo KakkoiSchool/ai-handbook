@@ -37,4 +37,18 @@ setup = (ROOT / 'setup' / 'README.md').read_text(encoding='utf-8')
 if 'github-account.md' not in setup or 'gh auth login --web' not in setup:
     raise SystemExit('setup/README.md must cover account creation and safe GitHub auth')
 
-print('ai-handbook routing validation: OK')
+for path in ['bootstrap/AGENTS.md', 'setup/agent.md', 'references/agent-behavior.md']:
+    if not (ROOT / path).is_file():
+        raise SystemExit('Required local-agent routing file missing: ' + path)
+starter = (ROOT / 'bootstrap/AGENTS.md').read_text(encoding='utf-8')
+if len(starter.encode('utf-8')) > 950:
+    raise SystemExit('Local starter must remain <=950 bytes')
+for word in ['github.com/KakkoiSchool/ai-handbook/blob/main/AGENTS.md', '日本語', 'language', 'Verify']:
+    if word.casefold() not in starter.casefold():
+        raise SystemExit('Local starter missing ' + word)
+for path in ['README.md', 'AGENTS.md', 'setup/agent.md']:
+    if 'bootstrap/AGENTS.md' not in (ROOT / path).read_text(encoding='utf-8'):
+        raise SystemExit(path + ' lacks the starter reference')
+if '[agent.md](agent.md)' not in setup:
+    raise SystemExit('First-day setup must include local agent install')
+print('ai-handbook routing and tiny starter validation: OK')

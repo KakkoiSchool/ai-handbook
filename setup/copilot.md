@@ -46,23 +46,7 @@ Do not tell an unverified student that they automatically have Student access si
 
 ## Use the handbook with Copilot
 
-For reliable beginner tasks, start Copilot Chat with:
-
-```text
-Read https://github.com/KakkoiSchool/ai-handbook first.
-Follow the relevant recipe exactly and do not substitute another workflow.
-```
-
-Then ask the task.
-
-Example:
-
-```text
-Read https://github.com/KakkoiSchool/ai-handbook first.
-Help me publish this repository with GitHub Pages.
-```
-
-This is particularly important for smaller/faster models: the handbook supplies the operational procedure instead of expecting the model to reconstruct it.
+Do not require a long prompt before each coding request. Follow [agent.md](agent.md) to configure the tiny [bootstrap/AGENTS.md](../bootstrap/AGENTS.md) instructions in a supported project/user scope. Verify they are active and that Copilot can read the current https://github.com/KakkoiSchool/ai-handbook/blob/main/AGENTS.md router. When the network is unavailable, report that limitation instead of inventing current guidance.
 
 ## If free usage runs out
 

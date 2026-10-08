@@ -75,6 +75,8 @@ Follow [copilot.md](copilot.md) for the supported GitHub Copilot setup and stude
 
 The coding AI should be able to read this repository and route itself using the root AGENTS.md.
 
+**Install the tiny local agent file** following [agent.md](agent.md) (do not install all the recipes). Verify that the agent recognizes it, can switch Japanese/English on request, and can fetch the current online router.
+
 ## 8. Local web preview
 
 For simple browser projects, install/use Live Server as described in [live-server.md](live-server.md).
@@ -97,7 +99,7 @@ Verify:
     git config --global user.name
     git config --global user.email
 
-Also verify VS Code opens successfully.
+Also verify VS Code opens successfully and that the short local agent guidance is active as in [agent.md](agent.md).
 
 ## 11. Prove the workflow
 

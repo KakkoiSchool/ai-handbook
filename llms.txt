@@ -8,6 +8,15 @@ https://github.com/KakkoiSchool/ai-handbook
 Agent router:
 https://github.com/KakkoiSchool/ai-handbook/blob/main/AGENTS.md
 
+Tiny local template (install only this text):
+https://github.com/KakkoiSchool/ai-handbook/blob/main/bootstrap/AGENTS.md
+
+Local agent setup:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/setup/agent.md
+
+Language switching:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/references/agent-behavior.md
+
 Routes:
 
 First-time computer setup:
@@ -33,4 +42,5 @@ Rules:
 2. Read existing-project instructions first.
 3. Route to the authoritative source instead of duplicating it.
 4. Verify the final user-visible result before saying the task succeeded.
-5. Never ask for passwords, 2FA codes, tokens, private keys, recovery codes, or session cookies.
+5. Speak the student's preferred language and fetch current guidance for every new task.
+6. Never ask for passwords, 2FA codes, tokens, private keys, recovery codes, or session cookies.

@@ -47,5 +47,5 @@ if ($ok) {
 }
 
 Write-Host ""
-Write-Host "NOT READY: follow recipes/student-setup.md for the missing items."
+Write-Host "NOT READY: follow setup/README.md for the missing items."
 exit 1

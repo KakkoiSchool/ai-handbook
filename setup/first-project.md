@@ -39,11 +39,16 @@ Create `index.html`:
 
 Do not add a framework, npm, or a build step for this first project.
 
-## 2. Start Git
+## 2. Connect the local agent
+
+Follow [agent.md](agent.md). For a new project using project-scoped instructions, copy [../bootstrap/AGENTS.md](../bootstrap/AGENTS.md) into this folder as `AGENTS.md`, unless one already exists. If the student already has global instructions, do not duplicate them. Confirm the agent recognizes the URL and honors a language switch.
+
+## 3. Start Git
 
 ```sh
 git init
 git add index.html
+# If you created a project AGENTS.md, also run: git add AGENTS.md
 git commit -m "Create first website"
 ```
 

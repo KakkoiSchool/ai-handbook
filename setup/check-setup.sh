@@ -46,6 +46,6 @@ fi
 if [ "$ok" -eq 1 ]; then
   printf '\nREADY: this computer is prepared for Kakkoi School Git/GitHub work.\n'
 else
-  printf '\nNOT READY: follow recipes/student-setup.md for the missing items.\n'
+  printf '\nNOT READY: follow setup/README.md for the missing items.\n'
   exit 1
 fi

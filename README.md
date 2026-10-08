@@ -1,42 +1,27 @@
 # Kakkoi School Code
 
-This repository is the **single entry point for coding AIs helping Kakkoi School students**.
+The **single entry point** for coding AIs helping Kakkoi School students. One URL, one task; the AI routes itself. Keep only a tiny agent instruction on the student's computer. The detailed instructions remain online and evolve centrally.
 
-Students should not need to know which recipe, framework, plugin, or documentation site to use. Give the AI this repository and describe the task. The AI routes itself.
+## One-sentence student prompts
 
-## Student prompt
+Setup: **Read https://github.com/KakkoiSchool/ai-handbook and set up this computer for Kakkoi School.**
 
-For a new computer:
+Later work: **Follow https://github.com/KakkoiSchool/ai-handbook and help with my project.**
 
-> Read https://github.com/KakkoiSchool/ai-handbook and set up this computer for Kakkoi School.
+## How it works
 
-For anything else:
+```text
+One-sentence prompt → online AGENTS.md (task router)
+                              ↓
+                  relevant setup/recipe/upstream docs
+                              ↑
+                   short local AGENTS.md
+```
 
-> Read https://github.com/KakkoiSchool/ai-handbook and help me with this project.
+The agent starts at [AGENTS.md](AGENTS.md), reads existing project instructions, and follows the relevant [setup](setup/README.md), [GitHub recipes](recipes/README.md), or [game guidance](recipes/games.md). It installs just [bootstrap/AGENTS.md](bootstrap/AGENTS.md) following [setup/agent.md](setup/agent.md), to find the latest guidance again for later requests. [Interaction and language-switch behavior](references/agent-behavior.md) lives centrally.
 
-That is enough.
+For new games, use [official LittleJS-AI](https://github.com/KilledByAPixel/LittleJS-AI); for Kakkoi multiplayer, use [p2p-core](https://github.com/KakkoiDev/p2p-core). Don't duplicate upstream documentation or add unnecessary wrappers.
 
-## For AI assistants
+An agent with no network/repository access cannot automatically fetch the latest instructions and must disclose that limitation.
 
-Read [AGENTS.md](AGENTS.md) first.
-
-It tells you where to go next based on the student's request.
-
-| Student needs | Route |
-|---|---|
-| First-time computer setup | [setup/README.md](setup/README.md) |
-| Make or modify a browser game | [recipes/games.md](recipes/games.md) → official LittleJS-AI |
-| Git / GitHub operation | [recipes/README.md](recipes/README.md) |
-| Publish a site | [recipes/github-pages.md](recipes/github-pages.md) |
-| Multiplayer | [recipes/multiplayer.md](recipes/multiplayer.md) |
-| Existing project work | Read that project's own instructions first |
-
-## Principle
-
-This repository is a **router**, not a replacement for upstream documentation.
-
-When an authoritative project already provides AI instructions, use them directly instead of copying them here.
-
-For browser games, Kakkoi School uses LittleJS and the authoritative AI game-development instructions live at:
-
-https://github.com/KilledByAPixel/LittleJS-AI
+Run `make validate` for static checks; see [evals/README.md](evals/README.md) for manual agent tests.
