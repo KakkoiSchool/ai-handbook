@@ -12,6 +12,7 @@ required = [
     'recipes/create-repository.md', 'recipes/delete-repository.md',
     'recipes/github-pages.md', 'recipes/multiplayer.md',
     'recipes/browser-fallback.md',
+    'skills/README.md', 'skills/serve/SKILL.md', 'skills/publish/SKILL.md',
     'browser/package.json',
 ]
 
@@ -32,6 +33,14 @@ for name in ['delete-repository.md', 'change-visibility.md', 'transfer-repositor
 root = (ROOT / 'AGENTS.md').read_text(encoding='utf-8')
 if 'https://github.com/KilledByAPixel/LittleJS-AI' not in root:
     raise SystemExit('AGENTS.md must route browser games to LittleJS-AI')
+for skill in ['skills/serve/SKILL.md', 'skills/publish/SKILL.md']:
+    if skill not in root:
+        raise SystemExit('AGENTS.md must route to ' + skill)
+if 'offer to save it as a reusable skill' not in root.lower():
+    raise SystemExit('AGENTS.md must teach agents to offer reusable skills')
+for token in ['skills/serve/SKILL.md', 'skills/publish/SKILL.md', 'repeatable workflow']:
+    if token.casefold() not in root.casefold():
+        raise SystemExit('AGENTS.md missing skill routing/rule: ' + token)
 
 setup = (ROOT / 'setup' / 'README.md').read_text(encoding='utf-8')
 if 'github-account.md' not in setup or 'gh auth login --web' not in setup:

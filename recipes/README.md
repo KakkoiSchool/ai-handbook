@@ -2,6 +2,13 @@
 
 Use this index after the root AGENTS.md routes the student here.
 
+For the two common end-to-end student workflows, prefer the higher-level skills first:
+
+- `/serve PROJECT` → [../skills/serve/SKILL.md](../skills/serve/SKILL.md)
+- `/publish PROJECT` → [../skills/publish/SKILL.md](../skills/publish/SKILL.md)
+
+The skills call into these recipes when needed.
+
 Choose the recipe that matches the requested operation. The student should not have to choose it for you.
 
 | Task | Recipe |
@@ -33,3 +40,15 @@ Choose the recipe that matches the requested operation. The student should not h
 For an operation covered by a recipe, follow that recipe rather than reconstructing the workflow from memory.
 
 For destructive/high-impact operations, require explicit student intent and verify the exact repository first.
+
+
+## Skills
+
+For short repeatable workflows exposed directly to students, see [../skills/README.md](../skills/README.md).
+
+Current direct skills:
+
+- `/serve PROJECT` — start and verify a local development server;
+- `/publish PROJECT` — guide the project through GitHub and verified GitHub Pages publishing.
+
+Recipes remain the detailed building blocks; skills may coordinate several recipes into one student-facing workflow.

@@ -33,7 +33,9 @@ Then use this repository for cross-project operations such as GitHub, publishing
 | Set up local agent file or switch language | [setup/agent.md](setup/agent.md) and [references/agent-behavior.md](references/agent-behavior.md) |
 | Create or modify a browser game | [recipes/games.md](recipes/games.md) |
 | Create/clone/rename/delete a repository, commit, branch, PR, issue, release, collaborator | [recipes/README.md](recipes/README.md) |
-| Publish a website | [recipes/github-pages.md](recipes/github-pages.md) |
+| Start a project's local dev server or use `/serve PROJECT` | [skills/serve/SKILL.md](skills/serve/SKILL.md) |
+| Publish a project or use `/publish PROJECT` | [skills/publish/SKILL.md](skills/publish/SKILL.md) |
+| Publish/configure GitHub Pages directly | [recipes/github-pages.md](recipes/github-pages.md) |
 | Add multiplayer | [recipes/multiplayer.md](recipes/multiplayer.md) |
 | Browser/UI fallback for GitHub | [recipes/browser-fallback.md](recipes/browser-fallback.md) |
 | Ordinary work in an existing project | Follow that project's own instructions |
@@ -107,3 +109,51 @@ For Kakkoi School browser games:
 - repository/deployment → the GitHub recipes here.
 
 Do not create a Kakkoi-specific wrapper around an upstream library without a demonstrated need.
+
+
+## 9. Make repeatable workflows discoverable
+
+Kakkoi School skills live under [skills/](skills/README.md).
+
+When a student writes a command-like request such as `/serve PROJECT` or `/publish PROJECT`, read and follow the matching skill.
+
+After a student successfully completes a **new workflow that is likely to be repeated**, briefly point out that it can be saved as a skill so next time the workflow can be invoked directly.
+
+For example:
+
+> This is a repeatable workflow. We can save it as a skill such as `/name` so next time you can just ask for that. Want me to add it?
+
+Rules:
+
+- suggest this only after the current workflow succeeds;
+- do not interrupt active work with optimization discussion;
+- do not create a skill without the student's approval;
+- first check whether this repository or the current project already has a matching skill/recipe;
+- prefer extending an existing skill over creating a near-duplicate;
+- keep project-specific skills with that project when possible;
+- keep generally useful Kakkoi School skills in this handbook.
+
+The purpose is to show students that repeated work can be optimized, not to create a new abstraction for every task.
+
+
+## 9. Show students that workflows can become skills
+
+After successfully completing and verifying a **new, repeatable multi-step workflow** that is not already covered by an existing skill, briefly offer to save it as a reusable skill.
+
+Use one short offer at the end, for example:
+
+> We can save this workflow as a `/name` skill so next time it is one command. Want me to create it?
+
+This is educational: the student should learn that repeated work can be optimized.
+
+Rules:
+
+- finish and verify the current task first;
+- suggest at most one skill per completed workflow;
+- do not suggest a new skill when an existing skill already covers it;
+- do not create the skill without the student's approval;
+- if they accept, identify the AI agent/harness and use its supported skill format/location rather than inventing one;
+- keep the skill narrow and point to existing authoritative docs instead of copying them;
+- never turn secrets, credentials, destructive confirmations, or one-off personal data into reusable skill content.
+
+Kakkoi School's centrally maintained skills use [skills/](skills/README.md).
