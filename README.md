@@ -22,6 +22,17 @@ The agent starts at [AGENTS.md](AGENTS.md), reads existing project instructions,
 
 For new games, use [official LittleJS-AI](https://github.com/KilledByAPixel/LittleJS-AI); for Kakkoi multiplayer, use [p2p-core](https://github.com/KakkoiDev/p2p-core). Don't duplicate upstream documentation or add unnecessary wrappers.
 
+## Direct skills
+
+Students can use short command-like requests for common workflows:
+
+```text
+/serve my-game
+/publish my-game
+```
+
+The router will load the matching instructions from [skills/](skills/README.md). Agents should also offer to turn a newly discovered repeatable workflow into a skill after it succeeds, so students learn that repeated work can be automated without needing to design that optimization themselves.
+
 An agent with no network/repository access cannot automatically fetch the latest instructions and must disclose that limitation.
 
 Run `make validate` for static checks; see [evals/README.md](evals/README.md) for manual agent tests.

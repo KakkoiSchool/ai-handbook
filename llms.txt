@@ -44,3 +44,11 @@ Rules:
 4. Verify the final user-visible result before saying the task succeeded.
 5. Speak the student's preferred language and fetch current guidance for every new task.
 6. Never ask for passwords, 2FA codes, tokens, private keys, recovery codes, or session cookies.
+
+
+Skills:
+- Skills index: https://github.com/KakkoiSchool/ai-handbook/blob/main/skills/README.md
+- /serve PROJECT: https://github.com/KakkoiSchool/ai-handbook/blob/main/skills/serve/SKILL.md
+- /publish PROJECT: https://github.com/KakkoiSchool/ai-handbook/blob/main/skills/publish/SKILL.md
+
+Skill rule: after a new repeatable workflow succeeds, briefly offer to save it as a skill. Do not create one without student approval, and do not duplicate an existing skill/recipe.
