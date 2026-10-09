@@ -9,7 +9,7 @@ At the end, the student has:
 - a tiny HTML project on the computer;
 - a Git commit;
 - a GitHub repository;
-- a local Live Server preview;
+- a verified local preview;
 - a public GitHub Pages URL.
 
 ## 1. Create the folder
@@ -54,108 +54,62 @@ git commit -m "Create first website"
 
 If Git refuses because the author identity is missing, follow [git.md](git.md). Ask the student which name/email to use; do not invent one.
 
-## 3. Test locally
+## 3. Test locally with the first reusable skill
 
-Open the folder in VS Code:
-
-```sh
-code .
-```
-
-Use Live Server and open the page through a URL such as:
+Teach the student:
 
 ```text
-http://localhost:5500/
+/serve hello-site
 ```
 
-Check that **Hello from Kakkoi School!** is visible.
+Follow [../skills/serve/SKILL.md](../skills/serve/SKILL.md).
+
+The skill should start the simplest appropriate local server and verify that **Hello from Kakkoi School!** is visible.
 
 If the student does not understand localhost, read [local-server.md](local-server.md).
 
-## 4. Choose the GitHub owner
+## 4. Publish with the second reusable skill
 
-Ask only if it is not already clear:
+Teach the student:
 
-- the student's own GitHub username; or
-- `KakkoiSchool` when the class project should belong to the school organization.
-
-Do not silently substitute one for the other.
-
-## 5. Create and push
-
-Personal repository:
-
-```sh
-gh repo create USERNAME/hello-site --public --source=. --remote=origin --push
+```text
+/publish hello-site
 ```
 
-Kakkoi School repository, only when requested and permitted:
+Follow [../skills/publish/SKILL.md](../skills/publish/SKILL.md).
 
-```sh
-gh repo create KakkoiSchool/hello-site --public --source=. --remote=origin --push
+The skill handles the remaining path:
+
+```text
+choose/verify GitHub owner
+        ↓
+create/connect repository
+        ↓
+commit + push
+        ↓
+configure GitHub Pages
+        ↓
+open and verify public URL
 ```
 
-If KakkoiSchool creation is refused, stop and follow [../recipes/kakkoischool-repository.md](../recipes/kakkoischool-repository.md). Do not create a personal replacement without asking.
+If the intended owner is unclear, ask whether the project belongs to the student's account or `KakkoiSchool`. Never silently substitute one for the other.
 
-## 6. Verify GitHub
-
-```sh
-git status
-git remote -v
-gh repo view OWNER/hello-site --json nameWithOwner,url,visibility
-```
-
-Expected:
-- working tree is clean;
-- `origin` is the intended repository;
-- GitHub reports the exact expected owner/name.
-
-## 7. Publish with GitHub Pages
-
-Follow [../recipes/github-pages.md](../recipes/github-pages.md).
-
-For this simple root-level site on `main`:
-
-```sh
-gh api --method POST repos/OWNER/hello-site/pages \
-  -f 'source[branch]=main' \
-  -f 'source[path]=/'
-```
-
-If GitHub says Pages already exists, use the update command from the Pages recipe rather than treating that as a failed project.
-
-## 8. Verify the public site
-
-```sh
-gh api repos/OWNER/hello-site/pages --jq '{status:.status,url:.html_url,source:.source}'
-```
-
-Check the latest build if needed:
-
-```sh
-gh api repos/OWNER/hello-site/pages/builds/latest --jq '{status:.status,error:.error.message}'
-```
-
-Open the returned public URL and verify the heading.
-
-Only then tell the student the site is live.
+Only tell the student the site is live after the public Pages URL has actually been opened and verified.
 
 ## What the student has learned
 
 ```text
 edit locally
    ↓
-test on localhost
+/serve PROJECT
    ↓
-git commit
+verified localhost
    ↓
-git push
+/publish PROJECT
    ↓
-GitHub repository
+GitHub repository + Pages
    ↓
-GitHub Pages
-   ↓
-public site
+verified public site
 ```
 
 That loop is the base workflow for later Kakkoi School web projects.

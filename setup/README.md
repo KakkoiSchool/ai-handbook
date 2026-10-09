@@ -79,7 +79,11 @@ The coding AI should be able to read this repository and route itself using the 
 
 ## 8. Local web preview
 
-For simple browser projects, install/use Live Server as described in [live-server.md](live-server.md).
+No VS Code server extension is required.
+
+Use the handbook's [`/serve` skill](../skills/serve/SKILL.md). It first uses the project's own development command and otherwise prefers an already-installed local server such as Python.
+
+Live Server remains an optional fallback; see [live-server.md](live-server.md) only when the student specifically wants it or it is already the project's established workflow.
 
 If the student asks what localhost means, use [local-server.md](local-server.md).
 

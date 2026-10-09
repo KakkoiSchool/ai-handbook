@@ -13,3 +13,12 @@ This is **fetch-on-task**, not a background synchronization mechanism. If offlin
 ## Work safely and verify
 
 Prefer the simplest existing solution and install only missing prerequisites. For GitHub prefer connected tools, then `gh`, local `git` for local work, and browser UI as fallback. Don't solicit passwords, 2FA codes, tokens, private keys, or cookies. Check exact owner/name and get authorization for destructive operations. Verify tests, running code, the intended remote, and live deployments before saying a task succeeded; report any unverified steps.
+
+
+## Teach workflow reuse
+
+After a new repeatable multi-step workflow succeeds and is verified, briefly tell the student it can be saved as a skill so next time it can be invoked directly.
+
+Do not interrupt the current task to design the skill. Do not create it without approval, and do not duplicate an existing skill or recipe.
+
+If the student accepts, identify the actual AI agent/harness first and use its supported skill format/location. Keep reusable skill instructions free of secrets and one-off personal data.
