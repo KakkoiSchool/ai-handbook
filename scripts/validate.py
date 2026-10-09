@@ -37,6 +37,15 @@ for token in ['skills/serve/SKILL.md', 'skills/publish/SKILL.md', 'repeatable wo
     if token.casefold() not in root.casefold():
         raise SystemExit('AGENTS.md missing skill routing/rule: ' + token)
 
+serve = (ROOT / 'skills' / 'serve' / 'SKILL.md').read_text(encoding='utf-8')
+if '--bind 127.0.0.1' not in serve:
+    raise SystemExit('/serve must bind generic Python fallback to localhost')
+
+publish = (ROOT / 'skills' / 'publish' / 'SKILL.md').read_text(encoding='utf-8')
+for token in ['/serve PROJECT', '.env', 'gh api repos/OWNER/REPO/pages']:
+    if token.casefold() not in publish.casefold():
+        raise SystemExit('/publish missing safety/verification token: ' + token)
+
 setup = (ROOT / 'setup' / 'README.md').read_text(encoding='utf-8')
 if 'github-account.md' not in setup or 'gh auth login --web' not in setup:
     raise SystemExit('setup/README.md must cover account creation and safe GitHub auth')
