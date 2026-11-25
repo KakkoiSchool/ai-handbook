@@ -29,6 +29,10 @@ If a project already uses another engine or framework, preserve it unless the st
 
 If the game needs multiplayer, keep LittleJS as the game engine and additionally follow [multiplayer.md](multiplayer.md) for Kakkoi's p2p-core.
 
+## Publish to itch.io
+
+When the student wants to share their game on itch.io, follow [the itch.io release guide](itch-io.md).
+
 ## Verify
 
 Run the game, verify the requested controls/core loop, and check the browser console before claiming success.

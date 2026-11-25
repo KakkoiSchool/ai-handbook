@@ -24,6 +24,8 @@ For new games, use [official LittleJS-AI](https://github.com/KilledByAPixel/Litt
 
 For project features, the handbook routes to [Cloudflare DNS and Workers](recipes/cloudflare.md), [email delivery](recipes/email.md), and [AI features](recipes/ai-features.md). Each recipe links to a working project or upstream guide.
 
+To publish a browser or downloadable game on itch.io, use the [itch.io release guide](recipes/itch-io.md).
+
 ## Direct skills
 
 Students can use short command-like requests for common workflows:

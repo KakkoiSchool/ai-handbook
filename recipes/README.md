@@ -25,6 +25,8 @@ Choose the recipe that matches the requested operation. The student should not h
 | Change visibility | [change-visibility.md](change-visibility.md) |
 | Fork | [fork-repository.md](fork-repository.md) |
 | Transfer ownership | [transfer-repository.md](transfer-repository.md) |
+| itch.io account, game upload, or publishing | [itch-io.md](itch-io.md) |
+| itch.io Butler, CI, API, or MCP | [itch-io-automation.md](itch-io-automation.md) |
 | GitHub Pages | [github-pages.md](github-pages.md) |
 | Browser fallback | [browser-fallback.md](browser-fallback.md) |
 | Cloudflare DNS, custom domains, or Workers | [cloudflare.md](cloudflare.md) |

@@ -31,6 +31,12 @@ https://github.com/KilledByAPixel/LittleJS-AI
 Git / GitHub operations:
 https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/README.md
 
+itch.io account and game publishing:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/itch-io.md
+
+itch.io Butler, CI and API:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/itch-io-automation.md
+
 GitHub Pages:
 https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/github-pages.md
 

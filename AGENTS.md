@@ -36,6 +36,8 @@ Then use this repository for cross-project operations such as GitHub, publishing
 | Use `/ai-guild`, ask for AI Guild mode, or explore an idea without a clear next step | [skills/ai-guild/SKILL.md](skills/ai-guild/SKILL.md) |
 | Start a project's local dev server or use `/serve PROJECT` | [skills/serve/SKILL.md](skills/serve/SKILL.md) |
 | Publish a project or use `/publish PROJECT` | [skills/publish/SKILL.md](skills/publish/SKILL.md) |
+| Create an itch.io account or publish a game on itch.io | [recipes/itch-io.md](recipes/itch-io.md) |
+| Update itch.io with Butler, automate release uploads, or use the itch.io API/MCP | [recipes/itch-io-automation.md](recipes/itch-io-automation.md) |
 | Publish/configure GitHub Pages directly | [recipes/github-pages.md](recipes/github-pages.md) |
 | Connect a custom domain, configure Cloudflare DNS, or deploy a Worker/API/relay | [recipes/cloudflare.md](recipes/cloudflare.md) |
 | Send app email, forward incoming mail, or set up a newsletter | [recipes/email.md](recipes/email.md) |

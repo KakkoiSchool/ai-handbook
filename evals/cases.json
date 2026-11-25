@@ -246,5 +246,36 @@
       "wrangler deploy",
       "npm install vite"
     ]
+  },
+  {
+    "id": "publish-itch-browser",
+    "prompt": "Use /publish for my new LittleJS game. I want to share it free on itch.io where friends can play it in their browser. I don't have a GitHub repo.",
+    "recipe": "recipes/itch-io.md",
+    "must": [
+      "itch.io",
+      "index.html",
+      "zip",
+      "Draft",
+      "Public"
+    ],
+    "must_not": [
+      "gh repo create",
+      "wrangler deploy"
+    ]
+  },
+  {
+    "id": "itch-channel-update",
+    "prompt": "I already have an itch.io project and an HTML5 channel. How do I push an updated build from CI and check which version is live?",
+    "recipe": "recipes/itch-io-automation.md",
+    "must": [
+      "butler push",
+      "BUTLER_API_KEY",
+      "channel",
+      "version"
+    ],
+    "must_not": [
+      "paste your API key into chat",
+      "gh repo create"
+    ]
   }
 ]

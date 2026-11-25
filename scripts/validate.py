@@ -12,6 +12,7 @@ required = [
     'recipes/create-repository.md', 'recipes/delete-repository.md',
     'recipes/github-pages.md', 'recipes/multiplayer.md',
     'recipes/cloudflare.md', 'recipes/email.md', 'recipes/ai-features.md',
+    'recipes/itch-io.md', 'recipes/itch-io-automation.md',
     'recipes/browser-fallback.md',
     'skills/README.md', 'skills/ai-guild/SKILL.md', 'skills/serve/SKILL.md', 'skills/publish/SKILL.md',
     'browser/package.json',
@@ -32,7 +33,7 @@ for name in ['delete-repository.md', 'change-visibility.md', 'transfer-repositor
         raise SystemExit(f'{name}: destructive action warning missing')
 
 root = (ROOT / 'AGENTS.md').read_text(encoding='utf-8')
-for recipe in ['cloudflare.md', 'email.md', 'ai-features.md']:
+for recipe in ['cloudflare.md', 'email.md', 'ai-features.md', 'itch-io.md', 'itch-io-automation.md']:
     if f'(recipes/{recipe})' not in root:
         raise SystemExit(f'AGENTS.md must route to {recipe}')
 

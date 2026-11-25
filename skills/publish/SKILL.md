@@ -62,12 +62,13 @@ Preserve an existing deployment architecture unless the student explicitly asks 
 | Existing deployment provider or workflow | Keep it and verify the intended target. |
 | Cloudflare Worker, including an existing Wrangler-configured project | Follow [Cloudflare Workers](../../recipes/cloudflare.md#deploy-a-worker-for-an-api-or-relay). |
 | Existing Pages site getting a custom domain | Follow [Cloudflare DNS for Pages](../../recipes/cloudflare.md#custom-domain-for-github-pages) when Cloudflare manages the DNS. |
+| Game explicitly targeting itch.io, or already released there | Follow [itch.io publishing](../../recipes/itch-io.md). For an existing Butler or CI workflow, use [itch.io automation](../../recipes/itch-io-automation.md). |
 | New static site or browser game with no requested host | Follow [GitHub Pages](../../recipes/github-pages.md). A root `index.html` can use `main:/` directly. |
 | New project that needs server-side code | Follow the requested or documented host. Use [the Cloudflare recipe](../../recipes/cloudflare.md) when Workers fits the project. If the host is unclear, establish the intended destination before deploying. |
 
 ## 3. Verify it locally first
 
-Before publishing a browser project, run the equivalent of:
+For a downloadable game, test the intended release build on its target OS. Before publishing a browser project, run the equivalent of:
 
 ```text
 /serve PROJECT
@@ -89,7 +90,9 @@ Never ask the student to paste a secret into chat.
 
 If sensitive data is present, stop and remove it from the intended commit before continuing.
 
-## 5. Make sure GitHub setup exists
+## 5. Make sure GitHub setup exists when the deployment uses it
+
+For a direct itch.io upload, follow the itch.io recipe after local verification and the release-file check. Skip steps 5–7 unless the student also requested GitHub or the established deployment uses it.
 
 If Git, `gh`, or GitHub authentication is missing, route to:
 
@@ -152,11 +155,11 @@ Open the result and check that the intended page and critical assets load, the b
 
 Finish with:
 
-- repository URL;
+- repository URL, if used;
 - deployment URL and provider;
 - branch/workflow used;
 - what was verified at that URL;
-- the update loop: edit → `/serve` → commit/push → verify deployment.
+- how to update the release with the selected host or workflow.
 
 If this publishing session uncovered another genuinely reusable workflow that is not already a skill, follow the root agent rule and offer to save it as a skill.
 
