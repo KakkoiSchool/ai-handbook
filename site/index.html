@@ -21,9 +21,7 @@
 
     .wrap { width: min(100% - 2.5rem, 61rem); margin-inline: auto; }
     header { padding-block: 1.5rem; border-bottom: 1px solid #cbd7ca; }
-    header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
     .school { margin: 0; font-weight: 700; }
-    nav { display: flex; flex-wrap: wrap; gap: 1rem; }
 
     main { padding-block: clamp(2rem, 7vw, 5rem); }
     h1 { margin: 0 0 clamp(1.5rem, 4vw, 3rem); font-size: clamp(2.6rem, 8vw, 5.3rem); line-height: 1.05; letter-spacing: -.055em; }
@@ -36,7 +34,7 @@
     li + li { margin-top: .35rem; }
     .prompt { margin: 1rem 0; padding: .9rem 1rem; background: #e8f0e6; border-inline-start: 3px solid #43816d; overflow-wrap: anywhere; }
     .prompt p, .links { margin: 0; }
-    .links { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-weight: 650; }
+    .links { font-weight: 650; }
 
     @media (max-width: 44rem) {
       .languages { grid-template-columns: 1fr; }
@@ -47,10 +45,6 @@
   <header>
     <div class="wrap">
       <p class="school">Kakkoi School</p>
-      <nav aria-label="Page languages">
-        <a href="#english" lang="en">English</a>
-        <a href="#japanese" lang="ja">日本語</a>
-      </nav>
     </div>
   </header>
   <main class="wrap">
@@ -69,7 +63,7 @@
           <p>Read https://github.com/KakkoiSchool/ai-handbook and help me make a simple browser game.</p>
         </blockquote>
         <p>If you’re still deciding what to make, ask for <strong>AI Guild mode</strong>. The assistant can help you compare options and choose a first step.</p>
-        <p class="links"><a href="https://github.com/KakkoiSchool/ai-handbook">Open the handbook</a><a href="https://github.com/KakkoiSchool/ai-handbook/tree/main/setup">Set up your computer</a></p>
+        <p class="links"><a href="https://github.com/KakkoiSchool/ai-handbook">Open the handbook</a></p>
       </section>
 
       <section id="japanese" lang="ja" aria-labelledby="japanese-title">
@@ -85,7 +79,7 @@
           <p>https://github.com/KakkoiSchool/ai-handbook を読んで、簡単なブラウザゲームを作るのを手伝ってください。</p>
         </blockquote>
         <p>何を作るか迷ったら、<strong>「AI Guildモードで手伝って」</strong>と伝えてください。AIと一緒に選択肢を比べ、最初に何をするか決められます。</p>
-        <p class="links"><a href="https://github.com/KakkoiSchool/ai-handbook">ハンドブックを開く</a><a href="https://github.com/KakkoiSchool/ai-handbook/tree/main/setup">パソコンの準備</a></p>
+        <p class="links"><a href="https://github.com/KakkoiSchool/ai-handbook">ハンドブックを開く</a></p>
       </section>
     </div>
   </main>
