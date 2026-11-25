@@ -13,7 +13,7 @@ required = [
     'recipes/github-pages.md', 'recipes/multiplayer.md',
     'recipes/cloudflare.md', 'recipes/email.md', 'recipes/ai-features.md',
     'recipes/browser-fallback.md',
-    'skills/README.md', 'skills/serve/SKILL.md', 'skills/publish/SKILL.md',
+    'skills/README.md', 'skills/ai-guild/SKILL.md', 'skills/serve/SKILL.md', 'skills/publish/SKILL.md',
     'browser/package.json',
 ]
 
@@ -38,7 +38,7 @@ for recipe in ['cloudflare.md', 'email.md', 'ai-features.md']:
 
 if 'https://github.com/KilledByAPixel/LittleJS-AI' not in root:
     raise SystemExit('AGENTS.md must route browser games to LittleJS-AI')
-for token in ['skills/serve/SKILL.md', 'skills/publish/SKILL.md', 'repeatable workflow']:
+for token in ['skills/ai-guild/SKILL.md', 'skills/serve/SKILL.md', 'skills/publish/SKILL.md', 'repeatable workflow']:
     if token.casefold() not in root.casefold():
         raise SystemExit('AGENTS.md missing skill routing/rule: ' + token)
 

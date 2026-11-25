@@ -29,9 +29,12 @@ For project features, the handbook routes to [Cloudflare DNS and Workers](recipe
 Students can use short command-like requests for common workflows:
 
 ```text
+/ai-guild I want to make a game about Izumo
 /serve my-game
 /publish my-game
 ```
+
+Use `/ai-guild` to talk through an idea or choose your next step. If your coding assistant has no custom slash commands, type **Help me in AI Guild mode**. You can [make this guidance the default](setup/agent.md#optional-always-on-ai-guild-guidance) for a project or for your coding assistant.
 
 The router will load the matching instructions from [skills/](skills/README.md). Agents should also offer to turn a newly discovered repeatable workflow into a skill after it succeeds, so students learn that repeated work can be automated without needing to design that optimization themselves.
 

@@ -5,6 +5,7 @@ Skills are short, reusable workflows an AI can invoke for a student.
 The student should not need to know where the implementation lives. They can use a command-like request such as:
 
 ```text
+/ai-guild I want to make a game about Izumo
 /serve my-game
 /publish my-game
 ```
@@ -15,6 +16,7 @@ The online router in the repository root decides which skill to read.
 
 | Skill | Purpose |
 |---|---|
+| [`/ai-guild [idea or task]`](ai-guild/SKILL.md) | Help the student choose a next step and find the relevant handbook guidance |
 | [`/serve`](serve/SKILL.md) | Start a project's local development server and open/verify its local URL |
 | [`/publish`](publish/SKILL.md) | Deploy to the project's existing host, or use GitHub Pages for a new static site, and verify the result |
 

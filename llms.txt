@@ -57,6 +57,7 @@ Rules:
 
 Skills:
 - Skills index: https://github.com/KakkoiSchool/ai-handbook/blob/main/skills/README.md
+- /ai-guild [idea or task]: https://github.com/KakkoiSchool/ai-handbook/blob/main/skills/ai-guild/SKILL.md
 - /serve PROJECT: https://github.com/KakkoiSchool/ai-handbook/blob/main/skills/serve/SKILL.md
 - /publish PROJECT: https://github.com/KakkoiSchool/ai-handbook/blob/main/skills/publish/SKILL.md
 

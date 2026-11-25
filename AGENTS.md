@@ -33,6 +33,7 @@ Then use this repository for cross-project operations such as GitHub, publishing
 | Set up local agent file or switch language | [setup/agent.md](setup/agent.md) and [references/agent-behavior.md](references/agent-behavior.md) |
 | Create or modify a browser game | [recipes/games.md](recipes/games.md) |
 | Create/clone/rename/delete a repository, commit, branch, PR, issue, release, collaborator | [recipes/README.md](recipes/README.md) |
+| Use `/ai-guild`, ask for AI Guild mode, or explore an idea without a clear next step | [skills/ai-guild/SKILL.md](skills/ai-guild/SKILL.md) |
 | Start a project's local dev server or use `/serve PROJECT` | [skills/serve/SKILL.md](skills/serve/SKILL.md) |
 | Publish a project or use `/publish PROJECT` | [skills/publish/SKILL.md](skills/publish/SKILL.md) |
 | Publish/configure GitHub Pages directly | [recipes/github-pages.md](recipes/github-pages.md) |
@@ -43,7 +44,7 @@ Then use this repository for cross-project operations such as GitHub, publishing
 | Browser/UI fallback for GitHub | [recipes/browser-fallback.md](recipes/browser-fallback.md) |
 | Ordinary work in an existing project | Follow that project's own instructions |
 
-A task can use more than one route. For example, making a multiplayer game means use the game instructions for the game and the multiplayer recipe for networking.
+Fetch only the page needed for the next action. If the task later needs another workflow, return to the matching route then.
 
 ## 3. Browser games: hand off to LittleJS-AI
 

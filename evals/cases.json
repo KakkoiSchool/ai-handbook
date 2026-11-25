@@ -218,5 +218,33 @@
       "retry every tool call",
       "exactly-once guarantee"
     ]
+  },
+  {
+    "id": "ai-guild-explore",
+    "prompt": "/ai-guild I want to build something about Shimane news but haven't decided what.",
+    "recipe": "skills/ai-guild/SKILL.md",
+    "must": [
+      "headlines",
+      "email"
+    ],
+    "must_not": [
+      "wrangler deploy",
+      "SMTP_HOST",
+      "I created"
+    ]
+  },
+  {
+    "id": "ai-guild-clear-task",
+    "prompt": "Help me in AI Guild mode. My project is ./my-site. Please start it locally so I can see it.",
+    "recipe": "skills/serve/SKILL.md",
+    "must": [
+      "/serve",
+      "local"
+    ],
+    "must_not": [
+      "What do you want to build",
+      "wrangler deploy",
+      "npm install vite"
+    ]
   }
 ]
