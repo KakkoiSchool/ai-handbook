@@ -1,13 +1,13 @@
 ---
 name: publish
-description: Guide a student from a named local project to a verified public GitHub Pages deployment, preserving the project's existing build/deployment architecture.
+description: Guide a student from a named local project to a verified deployment, using the existing host or defaulting to GitHub Pages for new static sites.
 ---
 
 # /publish PROJECT
 
 ## Goal
 
-Given a project name or path, take the student from local files to a **verified public GitHub Pages URL**.
+Given a project name or path, take the student from local files to a **verified deployment URL**.
 
 Examples:
 
@@ -17,7 +17,7 @@ Examples:
 /publish .
 ```
 
-This skill coordinates existing Kakkoi School Git/GitHub recipes. It does not invent a second publishing system.
+This skill coordinates the handbook's Git and deployment recipes.
 
 ## 1. Find and inspect the project
 
@@ -30,6 +30,7 @@ Read local instructions first when present:
 - `README.md`
 - deployment workflows under `.github/workflows/`
 - `package.json` or equivalent build configuration
+- Wrangler configuration or other deployment settings
 
 Inspect:
 
@@ -54,7 +55,17 @@ Determine whether the project is:
 
 Preserve an existing deployment architecture unless the student explicitly asks to replace it.
 
-## 2. Verify it locally first
+## 2. Choose the deployment route
+
+| Project or request | Route |
+|---|---|
+| Existing deployment provider or workflow | Keep it and verify the intended target. |
+| Cloudflare Worker, including an existing Wrangler-configured project | Follow [Cloudflare Workers](../../recipes/cloudflare.md#deploy-a-worker-for-an-api-or-relay). |
+| Existing Pages site getting a custom domain | Follow [Cloudflare DNS for Pages](../../recipes/cloudflare.md#custom-domain-for-github-pages) when Cloudflare manages the DNS. |
+| New static site or browser game with no requested host | Follow [GitHub Pages](../../recipes/github-pages.md). A root `index.html` can use `main:/` directly. |
+| New project that needs server-side code | Follow the requested or documented host. Use [the Cloudflare recipe](../../recipes/cloudflare.md) when Workers fits the project. If the host is unclear, establish the intended destination before deploying. |
+
+## 3. Verify it locally first
 
 Before publishing a browser project, run the equivalent of:
 
@@ -66,7 +77,7 @@ and verify the intended page works locally.
 
 Do not publish a visibly broken page as though publishing will fix it.
 
-## 3. Check what is about to become public
+## 4. Check what is about to become public
 
 Before staging or publishing:
 
@@ -78,7 +89,7 @@ Never ask the student to paste a secret into chat.
 
 If sensitive data is present, stop and remove it from the intended commit before continuing.
 
-## 4. Make sure GitHub setup exists
+## 5. Make sure GitHub setup exists
 
 If Git, `gh`, or GitHub authentication is missing, route to:
 
@@ -94,7 +105,7 @@ gh auth status
 
 Never ask for passwords, 2FA codes, tokens, cookies, or recovery codes in chat.
 
-## 5. Determine the intended GitHub owner
+## 6. Determine the intended GitHub owner
 
 Do not guess whether the project belongs under:
 
@@ -110,7 +121,7 @@ If no GitHub repository exists and ownership is not already clear, ask the stude
 
 If KakkoiSchool creation fails for lack of permission, report that problem. Do not silently create a personal substitute.
 
-## 6. Save and push the intended work
+## 7. Save and push the intended work
 
 Follow the existing recipes rather than duplicating Git behavior here:
 
@@ -123,56 +134,28 @@ Review changes before committing. Stage only intended files.
 
 Verify the intended commit reached the intended remote and branch.
 
-## 7. Publish with GitHub Pages
+## 8. Deploy and verify the selected target
 
-Follow:
+Run the selected deployment workflow or wait for its CI deployment. Publishing is complete after the intended version is running and verified at the deployment URL.
 
-[../../recipes/github-pages.md](../../recipes/github-pages.md)
-
-Decision order:
-
-1. If the repository already has a Pages workflow/deployment strategy, keep it.
-2. If the project documents a build output, use that output/workflow.
-3. For a plain static site whose `index.html` is at repository root, use the simplest Pages source from `main:/`.
-4. Do not add React, Vite, npm, another build tool, or another hosting service merely to publish a static site.
-
-If GitHub requires a one-time Pages setting the current tool cannot change, guide the student through **Repository → Settings → Pages** rather than pretending deployment succeeded.
-
-## 8. Verify the public result
-
-Publishing is not complete when `git push` succeeds.
-
-Verify Pages configuration:
+For **GitHub Pages**, use [the Pages recipe](../../recipes/github-pages.md). Keep any existing Pages workflow or documented build output. If the tool cannot change a required Pages setting, guide the student through **Repository → Settings → Pages**. Check the configured URL:
 
 ```sh
 gh api repos/OWNER/REPO/pages --jq '{status:.status,url:.html_url,source:.source}'
 ```
 
-Check the latest build/deployment when relevant:
+Inspect the latest deployment or build when relevant. For **Workers**, follow the Cloudflare recipe and verify the expected endpoint response or relay behavior. For other hosts, use the project's deployment checks.
 
-```sh
-gh api repos/OWNER/REPO/pages/builds/latest --jq '{status:.status,error:.error.message}'
-```
-
-Then open the returned public URL.
-
-Confirm:
-
-- the URL loads;
-- the expected page/game is displayed;
-- critical assets load;
-- browser apps/games have no blocking startup error.
-
-Only after this should you tell the student it is published.
+Open the result and check that the intended page and critical assets load, the browser has no blocking startup error, and the changed feature works. For an API-only deployment, exercise the intended request against the deployed endpoint.
 
 ## 9. Report simply
 
 Finish with:
 
 - repository URL;
-- public Pages URL;
+- deployment URL and provider;
 - branch/workflow used;
-- whether the public page was actually verified;
+- what was verified at that URL;
 - the update loop: edit → `/serve` → commit/push → verify deployment.
 
 If this publishing session uncovered another genuinely reusable workflow that is not already a skill, follow the root agent rule and offer to save it as a skill.

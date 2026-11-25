@@ -16,7 +16,7 @@ The online router in the repository root decides which skill to read.
 | Skill | Purpose |
 |---|---|
 | [`/serve`](serve/SKILL.md) | Start a project's local development server and open/verify its local URL |
-| [`/publish`](publish/SKILL.md) | Take a project from local files to a verified public GitHub Pages URL |
+| [`/publish`](publish/SKILL.md) | Deploy to the project's existing host, or use GitHub Pages for a new static site, and verify the result |
 
 ## When an AI should propose a new skill
 

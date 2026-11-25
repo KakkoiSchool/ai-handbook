@@ -129,8 +129,7 @@
       "git --version",
       "gh auth login --web",
       "VS Code",
-      "Live Server",
-      "ritwickdey.LiveServer",
+      "/serve",
       "localhost",
       "GitHub Pages"
     ],
@@ -138,7 +137,86 @@
       "paste your token",
       "buy GitHub Pro",
       "localhost is public",
-      "upload your password"
+      "upload your password",
+      "code --install-extension ritwickdey.LiveServer"
+    ]
+  },
+  {
+    "id": "publish-static-default",
+    "prompt": "I have a new plain HTML site with index.html on main and no hosting set up. Use /publish for this project.",
+    "recipe": "skills/publish/SKILL.md",
+    "must": [
+      "GitHub Pages",
+      "index.html",
+      "main",
+      "verify"
+    ],
+    "must_not": [
+      "wrangler deploy",
+      "npm install vite"
+    ]
+  },
+  {
+    "id": "publish-existing-worker",
+    "prompt": "My project is already a Cloudflare Worker. It has a wrangler.toml and deploys from CI. Use /publish to release my API change.",
+    "recipe": "recipes/cloudflare.md",
+    "must": [
+      "wrangler.toml",
+      "Cloudflare Worker",
+      "CI",
+      "endpoint"
+    ],
+    "must_not": [
+      "gh api --method POST repos/",
+      "source[branch]=main",
+      "wrangler deploy --env production"
+    ]
+  },
+  {
+    "id": "domain-existing-pages",
+    "prompt": "My site is already on GitHub Pages. Connect www.example.com using the DNS zone I have in Cloudflare.",
+    "recipe": "recipes/cloudflare.md",
+    "must": [
+      "GitHub Pages",
+      "CNAME",
+      "DNS-only",
+      "github.io",
+      "HTTPS"
+    ],
+    "must_not": [
+      "wrangler deploy",
+      "workers.dev",
+      "change your nameservers"
+    ]
+  },
+  {
+    "id": "email-personal-digest",
+    "prompt": "I want to preview my mainichi-news digest and test email locally before sending it to my own inbox.",
+    "recipe": "recipes/email.md",
+    "must": [
+      "mainichi-news preview",
+      "Mailpit",
+      "127.0.0.1",
+      "inbox"
+    ],
+    "must_not": [
+      "paste your SMTP password",
+      "spf.sendinblue.com"
+    ]
+  },
+  {
+    "id": "ai-recover-tool-action",
+    "prompt": "I am building a Node agent that can update a project record. The model sometimes times out after asking the agent to update the record. How do I recover without repeating the update?",
+    "recipe": "recipes/ai-features.md",
+    "must": [
+      "AI Core",
+      "receipt",
+      "timeout",
+      "operation ID"
+    ],
+    "must_not": [
+      "retry every tool call",
+      "exactly-once guarantee"
     ]
   }
 ]

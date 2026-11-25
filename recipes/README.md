@@ -1,4 +1,4 @@
-# Git and GitHub task router
+# Project recipes
 
 Use this index after the root AGENTS.md routes the student here.
 
@@ -27,6 +27,9 @@ Choose the recipe that matches the requested operation. The student should not h
 | Transfer ownership | [transfer-repository.md](transfer-repository.md) |
 | GitHub Pages | [github-pages.md](github-pages.md) |
 | Browser fallback | [browser-fallback.md](browser-fallback.md) |
+| Cloudflare DNS, custom domains, or Workers | [cloudflare.md](cloudflare.md) |
+| Email sending, forwarding, or newsletters | [email.md](email.md) |
+| AI features and agent reliability | [ai-features.md](ai-features.md) |
 | Multiplayer | [multiplayer.md](multiplayer.md) |
 | Browser game | [games.md](games.md) → LittleJS-AI |
 
@@ -42,6 +45,6 @@ For short repeatable workflows exposed directly to students, see [../skills/READ
 Current direct skills:
 
 - `/serve PROJECT` — start and verify a local development server;
-- `/publish PROJECT` — guide the project through GitHub and verified GitHub Pages publishing.
+- `/publish PROJECT` — guide the project through GitHub and a verified deployment, with GitHub Pages as the default for new static sites.
 
 Recipes remain the detailed building blocks; skills may coordinate several recipes into one student-facing workflow.

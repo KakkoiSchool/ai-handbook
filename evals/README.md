@@ -17,7 +17,9 @@ Each case has:
 - **must** — facts/actions the answer must include;
 - **must_not** — common hallucinations or unsafe shortcuts;
 - **recipe** — the handbook page the model should discover;
-- **verification** — how it should prove completion.
+- **verification** — how it should prove completion, described by the case's expected behavior.
+
+For deployment cases, check that the agent identifies the existing host, follows its existing workflow, and verifies the deployed URL or endpoint. A custom domain on an existing Pages site should keep Pages as the host. Use fake recipients and stubbed provider calls when testing email and AI routes.
 
 The important question is not whether the model knows GitHub already. It is whether it can **route to the handbook and follow it**.
 

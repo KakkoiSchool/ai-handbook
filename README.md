@@ -22,6 +22,8 @@ The agent starts at [AGENTS.md](AGENTS.md), reads existing project instructions,
 
 For new games, use [official LittleJS-AI](https://github.com/KilledByAPixel/LittleJS-AI); for Kakkoi multiplayer, use [p2p-core](https://github.com/KakkoiDev/p2p-core). Don't duplicate upstream documentation or add unnecessary wrappers.
 
+For project features, the handbook routes to [Cloudflare DNS and Workers](recipes/cloudflare.md), [email delivery](recipes/email.md), and [AI features](recipes/ai-features.md). Each recipe links to a working project or upstream guide.
+
 ## Direct skills
 
 Students can use short command-like requests for common workflows:

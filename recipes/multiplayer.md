@@ -44,6 +44,8 @@ room.status()
 
 If public relays are reachable but two different networks still cannot establish WebRTC, the problem may require TURN. Do not rewrite the game protocol because NAT traversal failed.
 
+For a project that needs a hosted WebSocket fallback, see the [Cloudflare relay example](cloudflare.md#worked-example-mini-flow-relay).
+
 ## Verify
 
 Test:

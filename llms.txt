@@ -34,6 +34,15 @@ https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/README.md
 GitHub Pages:
 https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/github-pages.md
 
+Cloudflare DNS and Workers:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/cloudflare.md
+
+Email delivery:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/email.md
+
+AI features and agent reliability:
+https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/ai-features.md
+
 Multiplayer:
 https://github.com/KakkoiSchool/ai-handbook/blob/main/recipes/multiplayer.md
 

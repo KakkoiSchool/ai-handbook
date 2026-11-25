@@ -11,6 +11,7 @@ required = [
     'recipes/README.md', 'recipes/games.md', 'recipes/github-cli.md',
     'recipes/create-repository.md', 'recipes/delete-repository.md',
     'recipes/github-pages.md', 'recipes/multiplayer.md',
+    'recipes/cloudflare.md', 'recipes/email.md', 'recipes/ai-features.md',
     'recipes/browser-fallback.md',
     'skills/README.md', 'skills/serve/SKILL.md', 'skills/publish/SKILL.md',
     'browser/package.json',
@@ -31,6 +32,10 @@ for name in ['delete-repository.md', 'change-visibility.md', 'transfer-repositor
         raise SystemExit(f'{name}: destructive action warning missing')
 
 root = (ROOT / 'AGENTS.md').read_text(encoding='utf-8')
+for recipe in ['cloudflare.md', 'email.md', 'ai-features.md']:
+    if f'(recipes/{recipe})' not in root:
+        raise SystemExit(f'AGENTS.md must route to {recipe}')
+
 if 'https://github.com/KilledByAPixel/LittleJS-AI' not in root:
     raise SystemExit('AGENTS.md must route browser games to LittleJS-AI')
 for token in ['skills/serve/SKILL.md', 'skills/publish/SKILL.md', 'repeatable workflow']:
@@ -42,7 +47,7 @@ if '--bind 127.0.0.1' not in serve:
     raise SystemExit('/serve must bind generic Python fallback to localhost')
 
 publish = (ROOT / 'skills' / 'publish' / 'SKILL.md').read_text(encoding='utf-8')
-for token in ['/serve PROJECT', '.env', 'gh api repos/OWNER/REPO/pages']:
+for token in ['/serve PROJECT', '.env', 'gh api repos/OWNER/REPO/pages', 'recipes/cloudflare.md']:
     if token.casefold() not in publish.casefold():
         raise SystemExit('/publish missing safety/verification token: ' + token)
 

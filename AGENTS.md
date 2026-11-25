@@ -36,6 +36,9 @@ Then use this repository for cross-project operations such as GitHub, publishing
 | Start a project's local dev server or use `/serve PROJECT` | [skills/serve/SKILL.md](skills/serve/SKILL.md) |
 | Publish a project or use `/publish PROJECT` | [skills/publish/SKILL.md](skills/publish/SKILL.md) |
 | Publish/configure GitHub Pages directly | [recipes/github-pages.md](recipes/github-pages.md) |
+| Connect a custom domain, configure Cloudflare DNS, or deploy a Worker/API/relay | [recipes/cloudflare.md](recipes/cloudflare.md) |
+| Send app email, forward incoming mail, or set up a newsletter | [recipes/email.md](recipes/email.md) |
+| Add AI to an app, handle model errors, or build an agent harness | [recipes/ai-features.md](recipes/ai-features.md) |
 | Add multiplayer | [recipes/multiplayer.md](recipes/multiplayer.md) |
 | Browser/UI fallback for GitHub | [recipes/browser-fallback.md](recipes/browser-fallback.md) |
 | Ordinary work in an existing project | Follow that project's own instructions |
@@ -76,9 +79,11 @@ Verify the actual outcome:
 - repository exists at the intended owner/name;
 - push reached the intended remote;
 - PR is open or merged as requested;
-- Pages URL loads;
+- the deployed website loads or the intended endpoint returns the expected response;
 - game renders and controls work;
 - multiplayer works in the intended environment.
+
+For automated checks, use the project's existing test tools. For a new focused check, see [test-core](https://github.com/KakkoiDev/test-core#recipes) for network stubs, browser journeys, and other copyable examples.
 
 Do not say done until the relevant user-visible result is verified.
 
